@@ -96,6 +96,6 @@ public struct AppContext: Codable, Equatable {
 
 extension Bundle {
   func object(from key : String) -> String {
-    (self.object(forInfoDictionaryKey: "key") as? String) ?? ""
+    (self.object(forInfoDictionaryKey: key) as? String) ?? ""
   }
 }

@@ -47,10 +47,9 @@ public final class ViewStore<State, Action>: ObservableObject {
   public let publisher: StorePublisher<State>
 
   private var viewCancellable: AnyCancellable?
-
-  var withViewStore: (State)  -> Void = { _ in }
-  var stateChange: (State)  -> Void = { _ in }
-  var swiftUIBodyUpdate: (String, State)  -> Void = { _, _ in }
+  var withViewStore: (State)  -> Void
+  var stateChange: (State)  -> Void
+  var swiftUIBodyUpdate: (String, State) -> Void
 
   /// Initializes a view store from a store.
   ///
