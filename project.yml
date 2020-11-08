@@ -1,0 +1,29 @@
+name: TestSVN
+options:
+  bundleIdPrefix: com.ratel.TestSVN
+  deploymentTarget:
+    tvOS: "14.1"
+packages:
+  ComposableArchitecture:
+        path: ComposableArchitecture/
+  SignalVSNoiseKit:
+    path: SignalVSNoiseKit/
+targets:
+  TestSVNClient:
+    type: application
+    platform: iOS
+    sources: [TestSVNClient]
+    dependencies:
+      - package: ComposableArchitecture
+        product: ComposableArchitecture
+      - package: SignalVSNoiseKit
+        product: SignalVSNoiseKit
+  TestSVNServer:
+    type: application
+    platform: iOS
+    sources: [TestSVNServer]
+    dependencies:
+      - package: ComposableArchitecture
+        product: ComposableArchitecture
+      - package: SignalVSNoiseKit
+        product: SignalVSNoiseKit
