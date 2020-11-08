@@ -56,8 +56,7 @@ struct TestSVNClientApp: App {
     store.sendAction = { env.svn.recordEvent(.tcaLifeCycle(.sendAction($0))) }
     store.withViewStore = { env.svn.recordEvent(.tcaLifeCycle(.withViewStore(AnyCodable($0)))) }
     store.stateChange = { env.svn.recordEvent(.tcaLifeCycle(.stateChange(AnyCodable($0)))) }
-    store.swiftUIBodyUpdate = { env.svn.recordEvent(.tcaLifeCycle(.swiftUIBodyUpdate($0, AnyCodable($1)))) }
-    
+    store.swiftUIBodyUpdate = { env.svn.recordEvent(.tcaLifeCycle(.swiftUIBodyUpdate($0, AnyCodable($1)))) }    
   }
   
   var body: some Scene {

@@ -6,7 +6,7 @@ import AnyCodable
 extension SVNClientTransceiver {
   func saveSession() {
     notificationCenter.addObserver(
-      forName: UIApplication.didEnterBackgroundNotification,
+      forName: UIApplication.willResignActiveNotification,
       object: nil,
       queue: self.queue) { [weak self] note in
       guard let self = self else { return }
