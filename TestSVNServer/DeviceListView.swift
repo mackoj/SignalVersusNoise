@@ -36,6 +36,8 @@ struct DeviceListView: View {
         }
         .listStyle(SidebarListStyle())
         .frame(width: 300)
+        
+        // SavedSessions
       }
   }
 }

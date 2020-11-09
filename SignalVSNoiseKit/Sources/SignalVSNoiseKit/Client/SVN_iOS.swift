@@ -6,11 +6,12 @@ import AnyCodable
 extension SVNClientTransceiver {
   func saveSession() {
     notificationCenter.addObserver(
-      forName: UIApplication.willResignActiveNotification,
+      forName: UIApplication.didEnterBackgroundNotification,
       object: nil,
       queue: self.queue) { [weak self] note in
+      dump(#function)
       guard let self = self else { return }
-      
+
       do {
         let url = try self.defaultDocumentURL().appendingPathComponent("\(self.currentSession.id.uuidString).json")
         try JSONEncoder().encode(self.currentSession).write(to: url)
