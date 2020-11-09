@@ -16,21 +16,23 @@ public class SVNClientTransceiver {
   
   public init<State : Codable>(_ stateType : State.Type, _ peerName : String, _ defaultQueue : OperationQueue? = nil, _ center : NotificationCenter = NotificationCenter.default, _ bundle: Bundle = .main, _ fileManager : FileManager = .default) {
     var configuration = MultipeerConfiguration.default
-    configuration.peerName = peerName
-    configuration.serviceType = "SVN_DEBUG"
+    configuration.peerName = "client"
+//    configuration.serviceType = "Debugger"
     notificationCenter = center
     queue = defaultQueue
     self.fileManager = fileManager
     currentSession = AppSession(bundle, fileManager)
     transceiver = MultipeerTransceiver(configuration: configuration)
+    transceiver.resume()
+    registerDidEnterBackgroundNotification()
     respondToTransceiver()
-    saveSession()
     listenAppLifeCycle()
+    transceiver.broadcast(ClientMultipeerTransceiverAsk.register)
   }
     
   func respondToTransceiver() {
     transceiver.receive(ServerMultipeerTransceiverAsk.self) { [weak self] (ask : ServerMultipeerTransceiverAsk, peer) in
-      print(#function)
+        print(#line)
       guard let self = self else { return }
       switch ask {
       case .live:

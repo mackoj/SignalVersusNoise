@@ -4,7 +4,7 @@ import UIKit
 import AnyCodable
 
 extension SVNClientTransceiver {
-  func saveSession() {
+  func registerDidEnterBackgroundNotification() {
     notificationCenter.addObserver(
       forName: UIApplication.didEnterBackgroundNotification,
       object: nil,

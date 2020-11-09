@@ -2,6 +2,7 @@ import SwiftUI
 import SignalVSNoiseKit
 import ComposableArchitecture
 
+
 struct AppState : Equatable {
   var peers : [String : SVNServerTransceiver.Client] = [:]
 }
@@ -9,8 +10,8 @@ struct AppState : Equatable {
 enum AppAction {
   case deviceListView(DeviceListViewAction)
 }
-
-let appReducer = Reducer<AppState, AppAction, AppEnvironnement>.empty
+//
+//let appReducer = Reducer<AppState, AppAction, AppEnvironnement>.empty
 //{
 //  state, action, env in
 //  switch action {
@@ -20,35 +21,36 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironnement>.empty
 //  return .none
 //}.combine
 
-struct AppEnvironnement {
-  var svn : SVNServerTransceiver
-  
-  init() {
-    svn = SVNServerTransceiver(
-      "Boos Bitch 🔥",
-      nil,
-      NotificationCenter.default,
-      Bundle.main,
-      FileManager.default
-    )
-  }
-}
+//struct AppEnvironnement {
+//    var svn : SVNServerTransceiver
+//
+//    init() {
+//      svn = SVNServerTransceiver(
+//        "Boos Bitch 🔥",
+//        nil,
+//        NotificationCenter.default,
+//        Bundle.main,
+//        FileManager.default
+//      )
+//    }
+//}
 
 @main
 struct TestSVNServerApp: App {
-  var store : Store<AppState, AppAction>
+//  var store : Store<AppState, AppAction>
   
   init() {
-    store = Store<AppState, AppAction>(
-      initialState: AppState(),
-      reducer: appReducer,
-      environment: AppEnvironnement()
-    )
+//    store = Store<AppState, AppAction>(
+//      initialState: AppState(),
+//      reducer: appReducer,
+//      environment: AppEnvironnement()
+//    )
   }
   
   var body: some Scene {
     WindowGroup {
-      ContentView(store: store)
+        DeviceListView()
+//      ContentView(store: store)
     }
   }
 }
