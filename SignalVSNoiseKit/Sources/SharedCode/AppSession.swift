@@ -1,5 +1,4 @@
 import Foundation
-import Version
 import UIKit
 import CoreTelephony
 import AnyCodable

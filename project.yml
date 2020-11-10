@@ -5,7 +5,7 @@ options:
     tvOS: "14.1"
 packages:
   ComposableArchitecture:
-        path: ComposableArchitecture/
+    path: ComposableArchitecture/
   SignalVSNoiseKit:
     path: SignalVSNoiseKit/
 targets:
@@ -17,7 +17,7 @@ targets:
       - package: ComposableArchitecture
         product: ComposableArchitecture
       - package: SignalVSNoiseKit
-        product: SignalVSNoiseKit
+        product: ClientTCADebugger
   TestSVNServer:
     type: application
     platform: iOS
@@ -26,4 +26,4 @@ targets:
       - package: ComposableArchitecture
         product: ComposableArchitecture
       - package: SignalVSNoiseKit
-        product: SignalVSNoiseKit
+        product: ServerTCADebugger

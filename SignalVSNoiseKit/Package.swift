@@ -8,36 +8,44 @@ let package = Package(
   platforms: [ .iOS(.v14), .macOS(.v10_15) ],
   products: [
     .library(
-      name: "SignalVSNoiseKit",
-      targets: ["SignalVSNoiseKit"]
+      name: "ClientTCADebugger",
+      targets: ["ClientTCADebugger"]
+    ),
+    .library(
+      name: "ServerTCADebugger",
+      targets: ["ServerTCADebugger"]
     ),
   ],
   dependencies: [
-//    .package(path: "../ComposableArchitecture/"),
     .package(url: "https://github.com/insidegui/MultipeerKit.git", from: "0.3.1"),
     .package(url: "https://github.com/kstenerud/KSCrash.git", .branch("master")),
-//    .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", from: "0.9.0"),
     .package(url: "https://github.com/mxcl/Version.git", from: "2.0.0"),
-//    .package(url: "https://github.com/JohnSundell/Files", from: "4.0.0"),
     .package(url: "https://github.com/Flight-School/AnyCodable.git", from: "0.4.0"),
-//    .package(url: "https://github.com/steipete/InterposeKit.git", from: "0.0.2"),
   ],
   targets: [
     .target(
-      name: "SignalVSNoiseKit",
+      name: "ClientTCADebugger",
       dependencies: [
-//        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         "KSCrash",
         "MultipeerKit",
-        "Version",
         "AnyCodable",
-//        "Files",
-//        "InterposeKit"
+        "SharedCode",
       ]
     ),
-    .testTarget(
-      name: "SignalVSNoiseKitTests",
-      dependencies: ["SignalVSNoiseKit"]
+    .target(
+      name: "ServerTCADebugger",
+      dependencies: [
+        "MultipeerKit",
+        "AnyCodable",
+        "SharedCode"
+      ]
+    ),
+    .target(
+      name: "SharedCode",
+      dependencies: [
+        "Version",
+        "AnyCodable",
+      ]
     ),
   ]
 )
