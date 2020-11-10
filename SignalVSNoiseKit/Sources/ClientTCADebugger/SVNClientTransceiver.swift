@@ -1,6 +1,7 @@
 import Foundation
 import MultipeerKit
 import AnyCodable
+import SharedCode
 
 struct Constant {
  static let folder : String = "svn"

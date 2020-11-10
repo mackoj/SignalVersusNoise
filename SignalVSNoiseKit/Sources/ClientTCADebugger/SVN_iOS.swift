@@ -2,6 +2,7 @@
 import Foundation
 import UIKit
 import AnyCodable
+import SharedCode
 
 extension SVNClientTransceiver {
   func registerDidEnterBackgroundNotification() {

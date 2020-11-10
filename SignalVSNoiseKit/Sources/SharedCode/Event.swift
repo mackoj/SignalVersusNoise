@@ -5,7 +5,7 @@ public struct Event<State : Codable> : Codable, Identifiable, Equatable {
   var timestamp: TimeInterval = Date.timeIntervalSinceReferenceDate
   let source: Source<State>
   
-  init(_ source : Source<State>) {
+    public init(_ source : Source<State>) {
     self.source = source
   }
   

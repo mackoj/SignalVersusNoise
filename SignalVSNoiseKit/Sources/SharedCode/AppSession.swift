@@ -5,11 +5,11 @@ import AnyCodable
 
 public struct AppSession<State : Codable> : Codable, Identifiable, Equatable {
     public var id = UUID()
-    var events: [Event<AnyCodable>] = []
-    var date = Date()
-    var appContext = AppContext()
+    public var events: [Event<AnyCodable>] = []
+    public var date = Date()
+    public var appContext = AppContext()
     
-    init(_ bundle: Bundle = .main, _ fileManager : FileManager = .default) {
+    public init(_ bundle: Bundle = .main, _ fileManager : FileManager = .default) {
         appContext = AppContext(bundle, fileManager)
     }
     
@@ -17,7 +17,7 @@ public struct AppSession<State : Codable> : Codable, Identifiable, Equatable {
         return lhs.id == rhs.id
     }
     
-    mutating func addEvent(_ event : Event<AnyCodable>) {
+    public mutating func addEvent(_ event : Event<AnyCodable>) {
         events.append(event)
         date = Date(timeIntervalSinceReferenceDate: event.timestamp)
     }
@@ -55,7 +55,7 @@ public struct AppContext: Codable, Equatable {
     public var app : AppInfo
     public var device : DeviceInfo
     
-    init(_ bundle: Bundle = .main, _ fileManager : FileManager = .default) {
+    public init(_ bundle: Bundle = .main, _ fileManager : FileManager = .default) {
         self.app = AppInfo(
             bundleShortVersion: bundle.object(from: "CFBundleShortVersionString"),
             bundleVersion: bundle.object(from: "CFBundleVersion"),
