@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SignalVSNoiseKit
+import ServerTCADebugger
 
 struct Device : Equatable, Identifiable {
     enum Model : String, Hashable {

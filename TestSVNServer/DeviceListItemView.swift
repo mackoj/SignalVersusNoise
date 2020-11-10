@@ -1,6 +1,6 @@
 import SwiftUI
 import ComposableArchitecture
-import SignalVSNoiseKit
+import ServerTCADebugger
 
 struct DeviceListItemView: View {
   let item: DeviceListModel.ModelGroup

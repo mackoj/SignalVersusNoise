@@ -2,6 +2,7 @@ import Foundation
 import MultipeerKit
 import AnyCodable
 import Combine
+import SharedCode
 
 public class SVNServerTransceiver : ObservableObject {
     var queue : OperationQueue?
