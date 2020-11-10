@@ -1,24 +1,28 @@
+import AnyCodable
 import Foundation
 import MultipeerKit
-import AnyCodable
 import SharedCode
 
 struct Constant {
- static let folder : String = "svn"
+  static let folder: String = "svn"
 }
 
 public class SVNClientTransceiver {
-  var queue : OperationQueue?
-  var notificationCenter : NotificationCenter
-  var transceiver : MultipeerTransceiver
-  var currentSession : AppSession<AnyCodable>
-  var fileManager : FileManager
+  var queue: OperationQueue?
+  var notificationCenter: NotificationCenter
+  var transceiver: MultipeerTransceiver
+  var currentSession: AppSession<AnyCodable>
+  var fileManager: FileManager
   var isLive = false
-  
-  public init<State : Codable>(_ stateType : State.Type, _ peerName : String, _ defaultQueue : OperationQueue? = nil, _ center : NotificationCenter = NotificationCenter.default, _ bundle: Bundle = .main, _ fileManager : FileManager = .default) {
+
+  public init<State: Codable>(
+    _ stateType: State.Type, _ peerName: String, _ defaultQueue: OperationQueue? = nil,
+    _ center: NotificationCenter = NotificationCenter.default, _ bundle: Bundle = .main,
+    _ fileManager: FileManager = .default
+  ) {
     var configuration = MultipeerConfiguration.default
     configuration.peerName = "client"
-//    configuration.serviceType = "Debugger"
+    //    configuration.serviceType = "Debugger"
     notificationCenter = center
     queue = defaultQueue
     self.fileManager = fileManager
@@ -30,27 +34,28 @@ public class SVNClientTransceiver {
     listenAppLifeCycle()
     transceiver.broadcast(ClientMultipeerTransceiverAsk.register)
   }
-    
+
   func respondToTransceiver() {
-    transceiver.receive(ServerMultipeerTransceiverAsk.self) { [weak self] (ask : ServerMultipeerTransceiverAsk, peer) in
-        print(#line)
+    transceiver.receive(ServerMultipeerTransceiverAsk.self) {
+      [weak self] (ask: ServerMultipeerTransceiverAsk, peer) in
+      print(#line)
       guard let self = self else { return }
       switch ask {
       case .live:
         self.isLive = !self.isLive
-      
+
       case .disconnect:
         self.transceiver.stop()
-        
+
       case .appContext:
         self.transceiver.broadcast(self.currentSession.appContext)
-      
+
       case let .session(id):
         try? self.broadcastSession(id)
-      
+
       case .allSessions:
         try? self.broadcastSessionList()
-      
+
       case .connect:
         self.transceiver.broadcast(self.currentSession.appContext)
       }
@@ -59,7 +64,7 @@ public class SVNClientTransceiver {
 }
 
 extension SVNClientTransceiver {
-  public func recordEvent(_ source : Source<AnyCodable>) {
+  public func recordEvent(_ source: Source<AnyCodable>) {
     DispatchQueue.main.async { [weak self] in
       let event = Event(source)
       self?.storeInSession(event)
@@ -67,14 +72,14 @@ extension SVNClientTransceiver {
     }
   }
 
-  func storeInSession(_ event : Event<AnyCodable>) {
+  func storeInSession(_ event: Event<AnyCodable>) {
     currentSession.addEvent(event)
   }
-  
-  func broadcastEvent(_ event : Event<AnyCodable>) {
+
+  func broadcastEvent(_ event: Event<AnyCodable>) {
     if self.isLive { transceiver.broadcast(event) }
   }
-  
+
   func broadcastSession(_ id: String) throws {
     let sessionFileName = "\(id).json"
     let sessionFileURL = try self.defaultDocumentURL().appendingPathComponent(sessionFileName)
@@ -83,14 +88,14 @@ extension SVNClientTransceiver {
       transceiver.broadcast(session)
     }
   }
-    
+
   func broadcastSessionList() throws {
     let files = try fileManager.contentsOfDirectory(atPath: self.defaultDocumentURL().path)
     if !files.isEmpty {
       transceiver.broadcast(files)
     }
   }
-  
+
   func defaultDocumentURL() throws -> URL {
     let documentsPath = NSSearchPathForDirectoriesInDomains(
       .documentDirectory,
@@ -102,7 +107,8 @@ extension SVNClientTransceiver {
     print(svnFolder)
     var directory: ObjCBool = ObjCBool(true)
     if !fileManager.fileExists(atPath: svnFolder.path, isDirectory: &directory) {
-      try fileManager.createDirectory(at: svnFolder, withIntermediateDirectories: true, attributes: nil)
+      try fileManager.createDirectory(
+        at: svnFolder, withIntermediateDirectories: true, attributes: nil)
     }
     return svnFolder
   }

@@ -15,7 +15,7 @@ extension Source {
     case protectedDataDidBecomeAvailable
     case userDidTakeScreenshot
     case crash(CrashModel)
-    
+
     enum CodingKeys: CodingKey {
       case didEnterBackground
       case willEnterForeground
@@ -76,7 +76,7 @@ extension Source {
         )
       }
     }
-    
+
     public func encode(to encoder: Encoder) throws {
       var container = encoder.container(keyedBy: CodingKeys.self)
       switch self {

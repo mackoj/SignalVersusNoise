@@ -2,7 +2,7 @@ init:
 	$(MAKE) xcodegen
 
 format:
-	swift format --configuration .swift-format --in-place --recursive ./SignalVSNoiseKit
+	swift format --in-place --recursive ./SignalVSNoiseKit
 
 gitignore-flush:
 	git rm -r --cached .

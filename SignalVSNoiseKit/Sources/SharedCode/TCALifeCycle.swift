@@ -2,12 +2,12 @@ import Foundation
 
 extension Source {
   public enum TCALifeCycle: Codable {
-    case sendAction(String) // whenever a action is send
-    case performAction(String, State) // whenever a action is performed
-    case withViewStore(State) // whenever the view is computed
-    case stateChange(State) // origin ??
-    case swiftUIBodyUpdate(String, State) // View
-    
+    case sendAction(String)  // whenever a action is send
+    case performAction(String, State)  // whenever a action is performed
+    case withViewStore(State)  // whenever the view is computed
+    case stateChange(State)  // origin ??
+    case swiftUIBodyUpdate(String, State)  // View
+
     enum CodingKeys: CodingKey {
       case performAction
       case sendAction
@@ -30,12 +30,12 @@ extension Source {
           var nestedContainer = try container.nestedUnkeyedContainer(forKey: .sendAction)
           let actionName = try nestedContainer.decode(String.self)
           self = .sendAction(actionName)
-          
+
         case .withViewStore:
           var nestedContainer = try container.nestedUnkeyedContainer(forKey: .withViewStore)
           let state = try nestedContainer.decode(State.self)
           self = .withViewStore(state)
-          
+
         case .swiftUIBodyUpdate:
           var nestedContainer = try container.nestedUnkeyedContainer(forKey: .swiftUIBodyUpdate)
           let actionName = try nestedContainer.decode(String.self)
@@ -56,7 +56,7 @@ extension Source {
         )
       }
     }
-    
+
     public func encode(to encoder: Encoder) throws {
       var container = encoder.container(keyedBy: CodingKeys.self)
       switch self {
@@ -64,7 +64,7 @@ extension Source {
         var nestedContainer = container.nestedUnkeyedContainer(forKey: .performAction)
         try nestedContainer.encode(actionName)
         try nestedContainer.encode(state)
-        
+
       case let .sendAction(actionName):
         var nestedContainer = container.nestedUnkeyedContainer(forKey: .sendAction)
         try nestedContainer.encode(actionName)

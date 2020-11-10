@@ -1,5 +1,5 @@
 import Foundation
 
-public enum ClientMultipeerTransceiverAsk : String, Codable {
+public enum ClientMultipeerTransceiverAsk: String, Codable {
   case register
 }

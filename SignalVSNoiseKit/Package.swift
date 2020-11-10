@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
   name: "SignalVSNoiseKit",
-  platforms: [ .iOS(.v14), .macOS(.v10_15) ],
+  platforms: [.iOS(.v14), .macOS(.v10_15)],
   products: [
     .library(
       name: "ClientTCADebugger",
@@ -37,7 +37,7 @@ let package = Package(
       dependencies: [
         "MultipeerKit",
         "AnyCodable",
-        "SharedCode"
+        "SharedCode",
       ]
     ),
     .target(

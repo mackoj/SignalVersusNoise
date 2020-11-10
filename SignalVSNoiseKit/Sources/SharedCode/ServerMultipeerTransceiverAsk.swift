@@ -1,23 +1,23 @@
 import Foundation
 
-public enum ServerMultipeerTransceiverAsk : Codable {
+public enum ServerMultipeerTransceiverAsk: Codable {
   case appContext
   case session(String)
   case allSessions
   case disconnect
   case live
   case connect
-  
+
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     if let key = container.allKeys.first {
       switch key {
       case .appContext:
         self = .appContext
-        
+
       case .allSessions:
         self = .allSessions
-        
+
       case .disconnect:
         self = .disconnect
 
@@ -44,7 +44,7 @@ public enum ServerMultipeerTransceiverAsk : Codable {
       )
     }
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     switch self {

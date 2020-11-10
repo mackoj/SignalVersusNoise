@@ -5,15 +5,18 @@ import Version
 public struct CrashModel: Equatable, Codable {
   public var binaryImages: [BinaryImage]?
   public var crash: Crash?
-//  public var process: Process?
+  //  public var process: Process?
   public var report: Report?
   public var system: System?
   public var user: User?
-  
-  public init(binaryImages: [BinaryImage]?, crash: Crash?/*, process: Process?*/, report: Report?, system: System?, user: User?) {
+
+  public init(
+    binaryImages: [BinaryImage]?, crash: Crash? /*, process: Process?*/, report: Report?,
+    system: System?, user: User?
+  ) {
     self.binaryImages = binaryImages
     self.crash = crash
-//    self.process = process
+    //    self.process = process
     self.report = report
     self.system = system
     self.user = user
@@ -28,8 +31,10 @@ public struct BinaryImage: Equatable, Codable {
   public var imageSize: Int?
   public var name: String?
   public var uuid: String?
-  
-  public init(cpuSubtype: Int?, cpuType: Int?, imageAddr: Int?, imageSize: Int?, name: String?, uuid: String?) {
+
+  public init(
+    cpuSubtype: Int?, cpuType: Int?, imageAddr: Int?, imageSize: Int?, name: String?, uuid: String?
+  ) {
     self.cpuSubtype = cpuSubtype
     self.cpuType = cpuType
     self.imageAddr = imageAddr
@@ -43,7 +48,7 @@ public struct BinaryImage: Equatable, Codable {
 public struct Crash: Equatable, Codable {
   public var error: Error?
   public var threads: [Thread]?
-  
+
   public init(error: Error?, threads: [Thread]?) {
     self.error = error
     self.threads = threads
@@ -56,7 +61,7 @@ public struct Error: Equatable, Codable {
   public var mach: Mach?
   public var signal: Signal?
   public var type: String?
-  
+
   public init(address: Int?, mach: Mach?, signal: Signal?, type: String?) {
     self.address = address
     self.mach = mach
@@ -71,7 +76,7 @@ public struct Mach: Equatable, Codable {
   public var exception: Int?
   public var exceptionName: String?
   public var subcode: Int?
-  
+
   public init(code: Int?, exception: Int?, exceptionName: String?, subcode: Int?) {
     self.code = code
     self.exception = exception
@@ -85,7 +90,7 @@ public struct Signal: Equatable, Codable {
   public var code: Int?
   public var name: String?
   public var signal: Int?
-  
+
   public init(code: Int?, name: String?, signal: Int?) {
     self.code = code
     self.name = name
@@ -104,8 +109,12 @@ public struct Thread: Equatable, Codable {
   public var registers: Registers?
   public var stack: Stack?
   public var name: String?
-  
-  public init(backtrace: Backtrace?, crashed: Bool?, currentThread: Bool?, dispatchQueue: String?, index: Int?/*, notableAddresses: NotableAddresses?*/, registers: Registers?, stack: Stack?, name: String?) {
+
+  public init(
+    backtrace: Backtrace?, crashed: Bool?, currentThread: Bool?, dispatchQueue: String?,
+    index: Int? /*, notableAddresses: NotableAddresses?*/, registers: Registers?, stack: Stack?,
+    name: String?
+  ) {
     self.backtrace = backtrace
     self.crashed = crashed
     self.currentThread = currentThread
@@ -122,7 +131,7 @@ public struct Thread: Equatable, Codable {
 public struct Backtrace: Equatable, Codable {
   public var contents: [Content]?
   public var skipped: Int?
-  
+
   public init(contents: [Content]?, skipped: Int?) {
     self.contents = contents
     self.skipped = skipped
@@ -136,8 +145,11 @@ public struct Content: Equatable, Codable {
   public var objectName: String?
   public var symbolAddr: Int?
   public var symbolName: String?
-  
-  public init(instructionAddr: Int?, objectAddr: Int?, objectName: String?, symbolAddr: Int?, symbolName: String?) {
+
+  public init(
+    instructionAddr: Int?, objectAddr: Int?, objectName: String?, symbolAddr: Int?,
+    symbolName: String?
+  ) {
     self.instructionAddr = instructionAddr
     self.objectAddr = objectAddr
     self.objectName = objectName
@@ -168,7 +180,7 @@ public struct R4: Equatable, Codable {
   public var address: Int?
   public var type: String?
   public var value: String?
-  
+
   public init(address: Int?, type: String?, value: String?) {
     self.address = address
     self.type = type
@@ -181,8 +193,8 @@ public struct FirstObjectIvars: Equatable, Codable {
   public var accessoryType: Int?
   //    public var block: Stack0_X2Fe5C7Fc?
   public var name: Commands?
-  
-  public init(accessoryType: Int?/*, block: Stack0_X2Fe5C7Fc?*/, name: Commands?) {
+
+  public init(accessoryType: Int? /*, block: Stack0_X2Fe5C7Fc?*/, name: Commands?) {
     self.accessoryType = accessoryType
     //        self.block = block
     self.name = name
@@ -196,8 +208,11 @@ public struct FirstObject: Equatable, Codable {
   public var ivars: FirstObjectIvars?
   public var lastDeallocatedObj: String?
   public var type: String?
-  
-  public init(address: Int?, firstObjectClass: String?, ivars: FirstObjectIvars?, lastDeallocatedObj: String?, type: String?) {
+
+  public init(
+    address: Int?, firstObjectClass: String?, ivars: FirstObjectIvars?, lastDeallocatedObj: String?,
+    type: String?
+  ) {
     self.address = address
     self.firstObjectClass = firstObjectClass
     self.ivars = ivars
@@ -209,22 +224,23 @@ public struct FirstObject: Equatable, Codable {
 // MARK: - Commands
 public class Commands: Equatable, Codable {
   public static func == (lhs: Commands, rhs: Commands) -> Bool {
-    return lhs.address == rhs.address &&
-    lhs.commandsClass == rhs.commandsClass &&
-    lhs.type == rhs.type &&
-    lhs.firstObject == rhs.firstObject
+    return lhs.address == rhs.address && lhs.commandsClass == rhs.commandsClass
+      && lhs.type == rhs.type && lhs.firstObject == rhs.firstObject
   }
-  
+
   public var address: Int?
   public var commandsClass: String?
-//  public var ivars: Process?
+  //  public var ivars: Process?
   public var type: String?
   public var firstObject: FirstObject?
-  
-  public init(address: Int?, commandsClass: String?/*, ivars: Process?*/, type: String?, firstObject: FirstObject?) {
+
+  public init(
+    address: Int?, commandsClass: String? /*, ivars: Process?*/, type: String?,
+    firstObject: FirstObject?
+  ) {
     self.address = address
     self.commandsClass = commandsClass
-//    self.ivars = ivars
+    //    self.ivars = ivars
     self.type = type
     self.firstObject = firstObject
   }
@@ -271,7 +287,7 @@ public class Commands: Equatable, Codable {
 public struct GetTitleBlock: Equatable, Codable {
   public var address: Int?
   public var type: String?
-  
+
   public init(address: Int?, type: String?) {
     self.address = address
     self.type = type
@@ -282,7 +298,7 @@ public struct GetTitleBlock: Equatable, Codable {
 public struct Registers: Equatable, Codable {
   public var basic: Basic?
   public var exception: Exception?
-  
+
   public init(basic: Basic?, exception: Exception?) {
     self.basic = basic
     self.exception = exception
@@ -308,8 +324,11 @@ public struct Basic: Equatable, Codable {
   public var r8: Int?
   public var r9: Int?
   public var sp: Int?
-  
-  public init(cpsr: Int?, ip: Int?, lr: Int?, pc: Int?, r0: Int?, r1: Int?, r10: Int?, r11: Int?, r2: Int?, r3: Int?, r4: Int?, r5: Int?, r6: Int?, r7: Int?, r8: Int?, r9: Int?, sp: Int?) {
+
+  public init(
+    cpsr: Int?, ip: Int?, lr: Int?, pc: Int?, r0: Int?, r1: Int?, r10: Int?, r11: Int?, r2: Int?,
+    r3: Int?, r4: Int?, r5: Int?, r6: Int?, r7: Int?, r8: Int?, r9: Int?, sp: Int?
+  ) {
     self.cpsr = cpsr
     self.ip = ip
     self.lr = lr
@@ -335,7 +354,7 @@ public struct Exception: Equatable, Codable {
   public var exception: Int?
   public var far: Int?
   public var fsr: Int?
-  
+
   public init(exception: Int?, far: Int?, fsr: Int?) {
     self.exception = exception
     self.far = far
@@ -351,8 +370,11 @@ public struct Stack: Equatable, Codable {
   public var growDirection: String?
   public var overflow: Bool?
   public var stackPointer: Int?
-  
-  public init(contents: String?, dumpEnd: Int?, dumpStart: Int?, growDirection: String?, overflow: Bool?, stackPointer: Int?) {
+
+  public init(
+    contents: String?, dumpEnd: Int?, dumpStart: Int?, growDirection: String?, overflow: Bool?,
+    stackPointer: Int?
+  ) {
     self.contents = contents
     self.dumpEnd = dumpEnd
     self.dumpStart = dumpStart
@@ -369,8 +391,10 @@ public struct Report: Equatable, Codable {
   public var timestamp: String?
   public var type: String?
   public var version: Version?
-  
-  public init(id: String?, processName: String?, timestamp: String?, type: String?, version: Version?) {
+
+  public init(
+    id: String?, processName: String?, timestamp: String?, type: String?, version: Version?
+  ) {
     self.id = id
     self.processName = processName
     self.timestamp = timestamp
@@ -383,7 +407,7 @@ public struct Report: Equatable, Codable {
 //public struct Version: Equatable, Codable {
 //  public var major: Int?
 //  public var minor: Int?
-//  
+//
 //  public init(major: Int?, minor: Int?) {
 //    self.major = major
 //    self.minor = minor
@@ -417,8 +441,16 @@ public struct System: Equatable, Codable {
   public var systemName: String?
   public var systemVersion: String?
   public var timeZone: String?
-  
-  public init(cfBundleExecutable: String?, cfBundleExecutablePath: String?, cfBundleIdentifier: String?, cfBundleName: String?, cfBundleShortVersionString: String?, cfBundleVersion: String?, appStartTime: String?, appuuid: String?, applicationStats: ApplicationStats?, bootTime: String?, cpuArch: String?, deviceAppHash: String?, jailbroken: Bool?, kernelVersion: String?, machine: String?, memory: Memory?, model: String?, osVersion: String?, parentProcessid: Int?, parentProcessName: String?, processid: Int?, processName: String?, systemName: String?, systemVersion: String?, timeZone: String?) {
+
+  public init(
+    cfBundleExecutable: String?, cfBundleExecutablePath: String?, cfBundleIdentifier: String?,
+    cfBundleName: String?, cfBundleShortVersionString: String?, cfBundleVersion: String?,
+    appStartTime: String?, appuuid: String?, applicationStats: ApplicationStats?, bootTime: String?,
+    cpuArch: String?, deviceAppHash: String?, jailbroken: Bool?, kernelVersion: String?,
+    machine: String?, memory: Memory?, model: String?, osVersion: String?, parentProcessid: Int?,
+    parentProcessName: String?, processid: Int?, processName: String?, systemName: String?,
+    systemVersion: String?, timeZone: String?
+  ) {
     self.cfBundleExecutable = cfBundleExecutable
     self.cfBundleExecutablePath = cfBundleExecutablePath
     self.cfBundleIdentifier = cfBundleIdentifier
@@ -458,8 +490,13 @@ public struct ApplicationStats: Equatable, Codable {
   public var launchesSinceLastCrash: Int?
   public var sessionsSinceLastCrash: Int?
   public var sessionsSinceLaunch: Int?
-  
-  public init(activeTimeSinceLastCrash: Double?, activeTimeSinceLaunch: Double?, applicationActive: Bool?, applicationInForeground: Bool?, backgroundTimeSinceLastCrash: Int?, backgroundTimeSinceLaunch: Int?, launchesSinceLastCrash: Int?, sessionsSinceLastCrash: Int?, sessionsSinceLaunch: Int?) {
+
+  public init(
+    activeTimeSinceLastCrash: Double?, activeTimeSinceLaunch: Double?, applicationActive: Bool?,
+    applicationInForeground: Bool?, backgroundTimeSinceLastCrash: Int?,
+    backgroundTimeSinceLaunch: Int?, launchesSinceLastCrash: Int?, sessionsSinceLastCrash: Int?,
+    sessionsSinceLaunch: Int?
+  ) {
     self.activeTimeSinceLastCrash = activeTimeSinceLastCrash
     self.activeTimeSinceLaunch = activeTimeSinceLaunch
     self.applicationActive = applicationActive
@@ -477,7 +514,7 @@ public struct Memory: Equatable, Codable {
   public var free: Int?
   public var size: Int?
   public var usable: Int?
-  
+
   public init(free: Int?, size: Int?, usable: Int?) {
     self.free = free
     self.size = size
@@ -493,15 +530,18 @@ public struct User: Equatable, Codable {
   public var intl2: String?
   public var quotedValue: String?
   public var test: String?
-//  public var テスト: String?
-  
-  public init(quotedKey: String?, bslashValue: String?, bslashKey: String?, intl2: String?, quotedValue: String?, test: String?/*, テスト: String?*/) {
+  //  public var テスト: String?
+
+  public init(
+    quotedKey: String?, bslashValue: String?, bslashKey: String?, intl2: String?,
+    quotedValue: String?, test: String? /*, テスト: String?*/
+  ) {
     self.quotedKey = quotedKey
     self.bslashValue = bslashValue
     self.bslashKey = bslashKey
     self.intl2 = intl2
     self.quotedValue = quotedValue
     self.test = test
-//    self.テスト = テスト
+    //    self.テスト = テスト
   }
 }
