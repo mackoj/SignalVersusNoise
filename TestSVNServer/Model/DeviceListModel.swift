@@ -8,26 +8,14 @@
 import SwiftUI
 import Combine
 import ServerTCADebugger
-/*
- public struct Client: Equatable {
- let peer : Peer
- var context : AppContext?
- var sessionFiles : [String] = []
- var sessions : [String : AppSession<AnyCodable>] = [:]
- }
- */
 
 class DeviceListModel: ObservableObject {
     
     @Published var groups: [ModelGroup] = []
     
-    //    enum OutlineTree<Leaf : Equatable, Branch : Equatable> {
-    //        case leaf(Leaf)
-    //        case branch(Branch)
-    //    }
-    
-    struct ModelGroup : Identifiable/*, Comparable*/ {
-//        static func < (lhs: DeviceListModel.ModelGroup, rhs: DeviceListModel.ModelGroup) -> Bool {
+    struct ModelGroup : Identifiable, Comparable {
+        static func < (lhs: DeviceListModel.ModelGroup, rhs: DeviceListModel.ModelGroup) -> Bool {
+            return true
 //            if let lhsRawValue = lhs.model?.clie,
 //               let rhsRawValue = rhs.model?.rawValue {
 //                return lhsRawValue < rhsRawValue
@@ -37,57 +25,48 @@ class DeviceListModel: ObservableObject {
 //                return lhsName < rhsName
 //            }
 //            return (lhs.contents?.count ?? 0) < (rhs.contents?.count ?? 0)
-//        }
+        }
         
         let id: UUID = UUID()
-        let model: Device.Model?
-        var device: Device?
+        let model: DeviceModel?
+        var client: SVNServerTransceiver.Client?
         var contents: [ModelGroup]?
         
-        init(branch: [Device], model: Device.Model) {
+        init(branch: [SVNServerTransceiver.Client], model: DeviceModel) {
             self.model = model
             self.contents = branch.map { ModelGroup(leaf: $0) }
-            self.device = nil
+            self.client = nil
         }
         
-        init(leaf: Device) {
+        init(leaf: SVNServerTransceiver.Client) {
             self.model = nil
             self.contents = nil
-            self.device = leaf
+            self.client = leaf
         }
     }
     
-    init(_ peers :  [String : SVNServerTransceiver.Client] = [:]) {
+    init(_ clients :  [String : SVNServerTransceiver.Client] = [:]) {
         var localGroups : [ModelGroup] = []
-
+        let localGroupsOrganized : [DeviceModel : [SVNServerTransceiver.Client]] = clients.reduce(into: [DeviceModel : [SVNServerTransceiver.Client]]()) { (res, client) in
+            let model = DeviceModel(rawValue: client.value.context?.device.model ?? "🤷🏾‍♂️") ?? .unknow("not possible")
+            var groupContent = res[model] ?? []
+            groupContent.append(client.value)
+            res[model] = groupContent
+        }
+        
+        for (key, value) in localGroupsOrganized {
+            localGroups.append(.init(branch: value, model: key))
+        }
+        localGroups.sort(by: >)
+        self.groups = localGroups
     }
     
-//    init(_ devices : [Device] = .mock) {
-//        var localGroups : [ModelGroup] = []
-//        let localGroupsOrganized : [Device.Model : [Device]] = devices.reduce(into: [Device.Model : [Device]]()) { (res, device) in
-//            var groupContent = res[device.model]
-//            if groupContent == nil {
-//                groupContent = []
-//            }
-//            groupContent?.append(device)
-//            res[device.model] = groupContent
-//        }
-//        
-//        for (key, value) in localGroupsOrganized {
-//            localGroups.append(.init(branch: value, model: key))
-//        }
-//        localGroups.sort(by: >)
-//        self.groups = localGroups
-//        //    print(localGroups)
-//    }
-    
-    
-    func getDevice(modeGroupID: ModelGroup.ID?) -> Device? {
+    func getDevice(modeGroupID: ModelGroup.ID?) -> SVNServerTransceiver.Client? {
         guard let id = modeGroupID else { return nil }
         
         for itm in groups {
             if itm.id == id {
-                return itm.device
+                return itm.client
             }
         }
         return nil

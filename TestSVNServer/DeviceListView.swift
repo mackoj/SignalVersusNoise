@@ -36,36 +36,31 @@ struct DeviceListView: View {
     )
     
     var peers : [SVNServerTransceiver.Client] {
-        svn.loggedClient.map { $0.value }
+        self.svn.loggedClient.map { $0.value }
     }
 
-//    var peers : [String] = [
-//        "Bruno",
-//        "Antoine",
-//        "Amine",
-//    ]
-
     var body: some View {
-        VStack {
-            Text("Server")
-            ForEach(peers, id: \.peer.id) { node in
-                Text("- " + node.peer.name)
-//                Text(node.context?.app.bundleIdentifier ?? "bundleIdentifier")
+        Group {
+            VStack {
+                Text("Server")
+                ForEach(peers, id: \.peer.id) { node in
+                    Text("- " + node.peer.name)
+                }
+            }
+            VStack(spacing: 20) {
+                Text("Selected Item = \(model.getDevice(modeGroupID: selection)?.peer.name ?? "n/a")")
+                    .foregroundColor(selection == nil ? Color.secondary : Color.green)
+                    .font(.title2)
+                
+                List(model.groups, children: \.contents, selection: $selection) { item in
+                    DeviceListItemView(item: item)
+                }
+                .listStyle(SidebarListStyle())
+                .frame(width: 300)
+                
+    //             SavedSessions
             }
         }
-//        VStack(spacing: 20) {
-//            Text("Selected Item = \(model.getDevice(modeGroupID: selection)?.name ?? "n/a")")
-//                .foregroundColor(selection == nil ? Color.secondary : Color.green)
-//                .font(.title2)
-            
-//            List(model.groups, children: \.contents, selection: $selection) { item in
-//                DeviceListItemView(item: item)
-//            }
-//            .listStyle(SidebarListStyle())
-//            .frame(width: 300)
-            
-            // SavedSessions
-//        }
     }
 }
 

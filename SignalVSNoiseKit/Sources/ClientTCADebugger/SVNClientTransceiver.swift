@@ -10,7 +10,7 @@ struct Constant {
 public class SVNClientTransceiver {
   var queue: OperationQueue?
   var notificationCenter: NotificationCenter
-    var ud: UserDefaults
+  var ud: UserDefaults
   var transceiver: MultipeerTransceiver
   var currentSession: AppSession<AnyCodable>
   var fileManager: FileManager
@@ -24,7 +24,7 @@ public class SVNClientTransceiver {
     _ bundle: Bundle = .main,
     _ fileManager: FileManager = .default
   ) {
-    var configuration : MultipeerConfiguration = .default
+    var configuration: MultipeerConfiguration = .default
     configuration.security.encryptionPreference = .required
     configuration.serviceType = "svn-tca"
     configuration.defaults = ud
@@ -44,7 +44,6 @@ public class SVNClientTransceiver {
   func respondToTransceiver() {
     transceiver.receive(ServerMultipeerTransceiverAsk.self) {
       [weak self] (ask: ServerMultipeerTransceiverAsk, peer) in
-      print(#line)
       guard let self = self else { return }
       switch ask {
       case .live:

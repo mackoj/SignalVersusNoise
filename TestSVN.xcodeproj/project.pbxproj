@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		054C4B848E8D99AD34423804 /* ClientTCADebugger in Frameworks */ = {isa = PBXBuildFile; productRef = A032B3D00067DC54B4A71DB2 /* ClientTCADebugger */; };
 		0D23B9AFB4F9F685D4B96BF7 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7AEB07A8066477DFC64F5294 /* ComposableArchitecture */; };
+		0F9F0FA6255D8809007AE254 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9F0FA5255D8809007AE254 /* DeviceModel.swift */; };
 		17C23C14CC3CCCEECC4FEE5D /* DeviceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C44D6869FADF6D64547E7BB /* DeviceListView.swift */; };
 		3E1A234031770CFFC3277EA2 /* ServerTCADebugger in Frameworks */ = {isa = PBXBuildFile; productRef = 7E0EDCAEB807FC9B2121FEB7 /* ServerTCADebugger */; };
 		3F763B8D887BB946FC26E13E /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F13FDE00C53CB34C8CA7370 /* Color.swift */; };
-		4739CBEAE9C0BB89FB462804 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E99B9CACA96A28730B6CD1D /* Device.swift */; };
 		58565DCEB3F63E1896774160 /* DeviceListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5EC1017F2BB9345CBA6EBF /* DeviceListModel.swift */; };
 		5AD22D69429666DAC381B15E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC662E0A60749485261CFCD /* ContentView.swift */; };
 		5B3C707CBB383DF20E30DF40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5490784BFD426D437ABD56A /* Assets.xcassets */; };
@@ -31,12 +31,12 @@
 		039915138AE09357BDBF94FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		085DEDABC681A66323C0F9EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0F13FDE00C53CB34C8CA7370 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		0F9F0FA5255D8809007AE254 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		1675D70FDE850C88192CB875 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3B977AA418A33B5C6D7A8E1C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4A219D09F1954565E7AFAFD0 /* TestSVNClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestSVNClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51CA949E487B83044EC48B36 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		58DA9FA859B3DBA304CDA537 /* DeviceListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListItemView.swift; sourceTree = "<group>"; };
-		5E99B9CACA96A28730B6CD1D /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		6C44D6869FADF6D64547E7BB /* DeviceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListView.swift; sourceTree = "<group>"; };
 		74A3F4A3A9F396AB8D4E94F0 /* TestSVNClientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSVNClientApp.swift; sourceTree = "<group>"; };
 		7C77CA067E4A578EA75E5433 /* SignalVSNoiseKit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SignalVSNoiseKit; sourceTree = SOURCE_ROOT; };
@@ -75,8 +75,8 @@
 		25912280CFFCCDDB92912A1F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5E99B9CACA96A28730B6CD1D /* Device.swift */,
 				8B5EC1017F2BB9345CBA6EBF /* DeviceListModel.swift */,
+				0F9F0FA5255D8809007AE254 /* DeviceModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -271,8 +271,8 @@
 				8071F0F8504D862BFDDFB38F /* Array.swift in Sources */,
 				3F763B8D887BB946FC26E13E /* Color.swift in Sources */,
 				DFD7A44EEFF581E4EA9A5489 /* ContentView.swift in Sources */,
-				4739CBEAE9C0BB89FB462804 /* Device.swift in Sources */,
 				BDE34D7867BA4B042A297A90 /* DeviceListItemView.swift in Sources */,
+				0F9F0FA6255D8809007AE254 /* DeviceModel.swift in Sources */,
 				58565DCEB3F63E1896774160 /* DeviceListModel.swift in Sources */,
 				17C23C14CC3CCCEECC4FEE5D /* DeviceListView.swift in Sources */,
 				A09067564A797DCB62FEFE56 /* TestSVNServerApp.swift in Sources */,

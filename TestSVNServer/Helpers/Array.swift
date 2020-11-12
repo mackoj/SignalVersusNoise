@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension Array where Element == Device {
+//extension Array where Element == Device {
 //  static var mock : [Element] {
 //    get {
 //      [
@@ -38,4 +38,4 @@ extension Array where Element == Device {
 //      ]
 //    }
 //  }
-}
+//}

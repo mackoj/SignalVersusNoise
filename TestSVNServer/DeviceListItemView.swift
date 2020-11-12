@@ -6,8 +6,9 @@ struct DeviceListItemView: View {
   let item: DeviceListModel.ModelGroup
   
   var computedText : String {
-    item.model?.rawValue ?? "\(item.device!.client.peer.name)"
+    item.model?.rawValue ?? "\(item.client!.peer.name)"
   }
+    
   var computedSystemImage : String {
     item.model?.systemImage ?? "xmark.octagon.fill"
   }

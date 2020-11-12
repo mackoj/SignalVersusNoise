@@ -11,7 +11,6 @@
         object: nil,
         queue: self.queue
       ) { [weak self] note in
-        dump(#function)
         guard let self = self else { return }
 
         do {
