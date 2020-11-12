@@ -15,6 +15,10 @@ let package = Package(
       name: "ServerTCADebugger",
       targets: ["ServerTCADebugger"]
     ),
+    .library(
+      name: "SharedCode",
+      targets: ["SharedCode"]
+    ),
   ],
   dependencies: [
     .package(url: "https://github.com/insidegui/MultipeerKit.git", from: "0.3.1"),
@@ -43,6 +47,7 @@ let package = Package(
     .target(
       name: "SharedCode",
       dependencies: [
+        "MultipeerKit",
         "Version",
         "AnyCodable",
       ]

@@ -1,6 +1,8 @@
 import SwiftUI
 import ComposableArchitecture
 import ServerTCADebugger
+import SharedCode
+import MultipeerKit
 
 struct DeviceListViewState {
     
@@ -25,38 +27,30 @@ enum DeviceListViewAction {
 struct DeviceListView: View {
     @State private var model = DeviceListModel()
     @State private var selection: DeviceListModel.ModelGroup.ID? = nil
-    @ObservedObject var svn = SVNServerTransceiver(
-        "Boos Bitch 🔥",
+    @ObservedObject var svn =  SVNServerTransceiver(
+        UIDevice.current.name,
         nil,
         NotificationCenter.default,
         Bundle.main,
         FileManager.default
     )
-    /// on update - regenerate devicelistmodel
-
-//    var devices : [Device] {
-//        self.svn.peers.map { (line) in
-//            let client = line.value
-//            let device = Device(
-//                name: <#T##String#>,
-//                model: <#T##Device.Model#>,
-//                app: <#T##String#>,
-//                color: <#T##Color#>,
-//                message: T##String?
-//            )
-//        }
-//    }
     
     var peers : [SVNServerTransceiver.Client] {
-        svn.peers.map { $0.value }
+        svn.loggedClient.map { $0.value }
     }
-    
+
+//    var peers : [String] = [
+//        "Bruno",
+//        "Antoine",
+//        "Amine",
+//    ]
+
     var body: some View {
         VStack {
             Text("Server")
             ForEach(peers, id: \.peer.id) { node in
-                Text(node.peer.name)
-                Text(node.context?.app.bundleIdentifier ?? "bundleIdentifier")
+                Text("- " + node.peer.name)
+//                Text(node.context?.app.bundleIdentifier ?? "bundleIdentifier")
             }
         }
 //        VStack(spacing: 20) {
@@ -73,4 +67,18 @@ struct DeviceListView: View {
             // SavedSessions
 //        }
     }
+}
+
+
+
+struct DeviceListView_Empty_Previews: PreviewProvider {
+  static var previews: some View {
+    DeviceListView().previewLayout(.sizeThatFits)
+  }
+}
+
+struct DeviceListView_NotEmpty_Previews: PreviewProvider {
+  static var previews: some View {
+    DeviceListView().previewLayout(.sizeThatFits)
+  }
 }

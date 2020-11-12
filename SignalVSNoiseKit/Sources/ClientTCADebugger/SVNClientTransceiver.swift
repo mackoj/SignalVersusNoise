@@ -10,21 +10,27 @@ struct Constant {
 public class SVNClientTransceiver {
   var queue: OperationQueue?
   var notificationCenter: NotificationCenter
+    var ud: UserDefaults
   var transceiver: MultipeerTransceiver
   var currentSession: AppSession<AnyCodable>
   var fileManager: FileManager
   var isLive = false
 
   public init<State: Codable>(
-    _ stateType: State.Type, _ peerName: String, _ defaultQueue: OperationQueue? = nil,
-    _ center: NotificationCenter = NotificationCenter.default, _ bundle: Bundle = .main,
+    _ stateType: State.Type,
+    _ defaultQueue: OperationQueue? = nil,
+    _ ud: UserDefaults = .standard,
+    _ center: NotificationCenter = NotificationCenter.default,
+    _ bundle: Bundle = .main,
     _ fileManager: FileManager = .default
   ) {
-    var configuration = MultipeerConfiguration.default
-    configuration.peerName = "client"
-    //    configuration.serviceType = "Debugger"
+    var configuration : MultipeerConfiguration = .default
+    configuration.security.encryptionPreference = .required
+    configuration.serviceType = "svn-tca"
+    configuration.defaults = ud
     notificationCenter = center
     queue = defaultQueue
+    self.ud = ud
     self.fileManager = fileManager
     currentSession = AppSession(bundle, fileManager)
     transceiver = MultipeerTransceiver(configuration: configuration)
