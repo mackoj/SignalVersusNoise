@@ -25,9 +25,6 @@ enum DeviceListViewAction {
 //}
 
 struct DeviceListView: View {
-    var model : DeviceListModel {
-        DeviceListModel(self.svn.loggedClient)
-    }
     
     @State private var selection: DeviceListModel.ModelGroup.ID? = nil
     @ObservedObject var svn =  SVNServerTransceiver(
@@ -38,18 +35,12 @@ struct DeviceListView: View {
         FileManager.default
     )
     
-    var peers : [SVNServerTransceiver.Client] {
-        self.svn.loggedClient.map { $0.value }
+    var model : DeviceListModel {
+        DeviceListModel(self.svn.loggedClient)
     }
 
     var body: some View {
         Group {
-            VStack {
-                Text("Server")
-                ForEach(peers, id: \.peer.id) { node in
-                    Text("- " + node.peer.name)
-                }
-            }
             VStack(spacing: 20) {
                 Text("Selected Item = \(model.getDevice(modeGroupID: selection)?.peer.name ?? "n/a")")
                     .foregroundColor(selection == nil ? Color.secondary : Color.green)
@@ -59,9 +50,7 @@ struct DeviceListView: View {
                     DeviceListItemView(item: item)
                 }
                 .listStyle(SidebarListStyle())
-                .frame(width: 300)
-                
-    //             SavedSessions
+//                .frame(width: 300)
             }
         }
     }

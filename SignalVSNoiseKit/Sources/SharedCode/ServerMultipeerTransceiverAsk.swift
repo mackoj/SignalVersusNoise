@@ -1,5 +1,11 @@
 import Foundation
 
+public enum DebuggerType: String, RawRepresentable, Codable {
+  case server
+  case client
+  case unknown
+}
+
 public enum ServerMultipeerTransceiverAsk: Codable {
   case appContext
   case session(String)
@@ -12,6 +18,7 @@ public enum ServerMultipeerTransceiverAsk: Codable {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     if let key = container.allKeys.first {
       switch key {
+
       case .appContext:
         self = .appContext
 

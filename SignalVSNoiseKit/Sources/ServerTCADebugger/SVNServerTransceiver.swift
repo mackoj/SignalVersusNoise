@@ -13,6 +13,7 @@ public class SVNServerTransceiver: ObservableObject {
 
   public struct Client: Equatable {
     public let peer: Peer
+    public var dType: DebuggerType = .unknown
     public var context: AppContext?
     public var sessionFiles: [String] = []
     public var sessions: [String: AppSession<AnyCodable>] = [:]
@@ -48,6 +49,7 @@ public class SVNServerTransceiver: ObservableObject {
     transceiver = MultipeerTransceiver(configuration: configuration)
     transceiver.resume()
     handleClients()
+    transceiver.broadcast(DebuggerType.server)
   }
 
   deinit {
@@ -58,8 +60,15 @@ public class SVNServerTransceiver: ObservableObject {
   }
 
   func handleClients() {
+    transceiver.receive(DebuggerType.self) { [weak self] (dtype, peer) in
+      guard let self = self else { return }
+      var obj = self.loggedClient[peer.id] ?? Client(peer: peer)
+      obj.dType = dtype
+      self.loggedClient[peer.id] = obj
+    }
+
     transceiver.peerRemoved = { [weak self] peer in
-        self?.loggedClient.removeValue(forKey: peer.id)
+      self?.loggedClient.removeValue(forKey: peer.id)
     }
     transceiver.peerAdded = { [weak self] peer in
       self?.transceiver.send(ServerMultipeerTransceiverAsk.connect, to: [peer])

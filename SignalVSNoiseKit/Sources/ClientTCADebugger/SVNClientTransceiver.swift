@@ -39,6 +39,7 @@ public class SVNClientTransceiver {
     respondToTransceiver()
     listenAppLifeCycle()
     transceiver.broadcast(ClientMultipeerTransceiverAsk.register)
+    transceiver.broadcast(DebuggerType.client)
   }
 
   func respondToTransceiver() {
@@ -57,22 +58,23 @@ public class SVNClientTransceiver {
 
       case let .session(id):
         do {
-            let sessionFileName = "\(id).json"
-            let sessionFileURL = try self.defaultDocumentURL().appendingPathComponent(sessionFileName)
-            if let data = self.fileManager.contents(atPath: sessionFileURL.path) {
-              let session = try JSONDecoder().decode(AppSession<AnyCodable>.self, from: data)
-                self.transceiver.send(session, to: [peer])
-            }
+          let sessionFileName = "\(id).json"
+          let sessionFileURL = try self.defaultDocumentURL().appendingPathComponent(sessionFileName)
+          if let data = self.fileManager.contents(atPath: sessionFileURL.path) {
+            let session = try JSONDecoder().decode(AppSession<AnyCodable>.self, from: data)
+            self.transceiver.send(session, to: [peer])
+          }
         } catch {
-            dump(error)
+          dump(error)
         }
 
       case .allSessions:
         do {
-            let files = try self.fileManager.contentsOfDirectory(atPath: self.defaultDocumentURL().path)
-            self.transceiver.send(files, to: [peer])
+          let files = try self.fileManager.contentsOfDirectory(
+            atPath: self.defaultDocumentURL().path)
+          self.transceiver.send(files, to: [peer])
         } catch {
-            dump(error)
+          dump(error)
         }
 
       case .connect:
@@ -95,8 +97,10 @@ extension SVNClientTransceiver {
     currentSession.addEvent(event)
   }
 
-    func broadcastEvent(_ event: Event<AnyCodable>, _ peer : Peer? = nil) {
-        if self.isLive { (peer != nil) ? transceiver.send(event, to: [peer!]) :  transceiver.broadcast(event) }
+  func broadcastEvent(_ event: Event<AnyCodable>, _ peer: Peer? = nil) {
+    if self.isLive {
+      (peer != nil) ? transceiver.send(event, to: [peer!]) : transceiver.broadcast(event)
+    }
   }
 
   func defaultDocumentURL() throws -> URL {
