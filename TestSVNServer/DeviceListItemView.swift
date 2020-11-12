@@ -10,7 +10,11 @@ struct DeviceListItemView: View {
   }
     
   var computedSystemImage : String {
-    item.model?.systemImage ?? "xmark.octagon.fill"
+    if let model = item.client?.context?.device.model,
+       let deviceModel = DeviceModel(rawValue: model) {
+        return deviceModel.systemImage
+    }
+    return item.model?.systemImage ?? "xmark.octagon.fill"
   }
   
   var computedForegroundColor: Color {

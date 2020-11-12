@@ -13,19 +13,19 @@ class DeviceListModel: ObservableObject {
     
     @Published var groups: [ModelGroup] = []
     
-    struct ModelGroup : Identifiable, Comparable {
-        static func < (lhs: DeviceListModel.ModelGroup, rhs: DeviceListModel.ModelGroup) -> Bool {
-            return true
-//            if let lhsRawValue = lhs.model?.clie,
-//               let rhsRawValue = rhs.model?.rawValue {
-//                return lhsRawValue < rhsRawValue
-//            }
-//            if let lhsName = lhs.device?.name,
-//               let rhsName = rhs.device?.name {
-//                return lhsName < rhsName
-//            }
-//            return (lhs.contents?.count ?? 0) < (rhs.contents?.count ?? 0)
-        }
+    struct ModelGroup : Identifiable/*, Comparable*/ {
+//        static func < (lhs: DeviceListModel.ModelGroup, rhs: DeviceListModel.ModelGroup) -> Bool {
+//            return true
+////            if let lhsRawValue = lhs.model?.clie,
+////               let rhsRawValue = rhs.model?.rawValue {
+////                return lhsRawValue < rhsRawValue
+////            }
+////            if let lhsName = lhs.device?.name,
+////               let rhsName = rhs.device?.name {
+////                return lhsName < rhsName
+////            }
+////            return (lhs.contents?.count ?? 0) < (rhs.contents?.count ?? 0)
+//        }
         
         let id: UUID = UUID()
         let model: DeviceModel?
@@ -57,7 +57,7 @@ class DeviceListModel: ObservableObject {
         for (key, value) in localGroupsOrganized {
             localGroups.append(.init(branch: value, model: key))
         }
-        localGroups.sort(by: >)
+//        localGroups.sort(by: >)
         self.groups = localGroups
     }
     

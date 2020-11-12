@@ -25,7 +25,10 @@ enum DeviceListViewAction {
 //}
 
 struct DeviceListView: View {
-    @State private var model = DeviceListModel()
+    var model : DeviceListModel {
+        DeviceListModel(self.svn.loggedClient)
+    }
+    
     @State private var selection: DeviceListModel.ModelGroup.ID? = nil
     @ObservedObject var svn =  SVNServerTransceiver(
         UIDevice.current.name,
