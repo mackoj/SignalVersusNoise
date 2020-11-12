@@ -1,24 +1,9 @@
 import SwiftUI
-import ComposableArchitecture
 import ServerTCADebugger
 import Combine
 import AnyCodable
 import SharedCode
-
-struct FeedState: Equatable {
-    var id: String { client.peer.id }
-    let client : SVNServerTransceiver.Client
-    var rows: IdentifiedArrayOf<Feed>
-//    var selection: Identified<Feed.ID, FeedState>?
-}
-
-enum FeedAction {
-    case row(index: UUID, action: FeedRowAction)
-}
-
-enum FeedRowAction {
-    case tapped
-}
+import ComposableArchitecture
 
 struct FeedView: View {
     let store : Store<FeedState, FeedAction>

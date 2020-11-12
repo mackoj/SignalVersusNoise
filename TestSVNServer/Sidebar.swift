@@ -8,18 +8,6 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct SidebarState: Equatable {
-    enum ServerState: String, Equatable {
-        case preping
-        case ready
-    }
-    var serverState : ServerState = .preping
-}
-
-enum SidebarAction {
-    case reloadDevices
-}
-
 struct Sidebar: View {
     let store : Store<SidebarState, SidebarAction>
     var body: some View {
