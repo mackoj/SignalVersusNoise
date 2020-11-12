@@ -14,7 +14,10 @@ struct Sidebar: View {
         WithViewStore(self.store) { viewStore in
             switch viewStore.serverState {
             case .preping:
-                Text("Warming up")
+                VStack {
+                    Image(systemName: "bonjour")
+                    Text("Warming up")
+                }
             case .ready:
                 VStack {
                     DeviceListView()

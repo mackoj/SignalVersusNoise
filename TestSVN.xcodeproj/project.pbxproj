@@ -18,6 +18,7 @@
 		0F9F0FCB255DF52F007AE254 /* SidebarBusinessLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9F0FCA255DF52F007AE254 /* SidebarBusinessLogic.swift */; };
 		0F9F0FCF255DF565007AE254 /* FeedBusinessLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9F0FCE255DF565007AE254 /* FeedBusinessLogic.swift */; };
 		0F9F0FD3255DF5AA007AE254 /* TimelineBusinessLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9F0FD2255DF5AA007AE254 /* TimelineBusinessLogic.swift */; };
+		0F9F0FD7255DF6D2007AE254 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9F0FD6255DF6D2007AE254 /* AppView.swift */; };
 		17C23C14CC3CCCEECC4FEE5D /* DeviceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C44D6869FADF6D64547E7BB /* DeviceListView.swift */; };
 		3E1A234031770CFFC3277EA2 /* ServerTCADebugger in Frameworks */ = {isa = PBXBuildFile; productRef = 7E0EDCAEB807FC9B2121FEB7 /* ServerTCADebugger */; };
 		3F763B8D887BB946FC26E13E /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F13FDE00C53CB34C8CA7370 /* Color.swift */; };
@@ -48,6 +49,7 @@
 		0F9F0FCA255DF52F007AE254 /* SidebarBusinessLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarBusinessLogic.swift; sourceTree = "<group>"; };
 		0F9F0FCE255DF565007AE254 /* FeedBusinessLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBusinessLogic.swift; sourceTree = "<group>"; };
 		0F9F0FD2255DF5AA007AE254 /* TimelineBusinessLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineBusinessLogic.swift; sourceTree = "<group>"; };
+		0F9F0FD6255DF6D2007AE254 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		1675D70FDE850C88192CB875 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3B977AA418A33B5C6D7A8E1C /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		4A219D09F1954565E7AFAFD0 /* TestSVNClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestSVNClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +104,7 @@
 			children = (
 				A5490784BFD426D437ABD56A /* Assets.xcassets */,
 				B8F60971836CFAA2B97F9F2E /* App.swift */,
+				0F9F0FD6255DF6D2007AE254 /* AppView.swift */,
 				0F9F0FC6255DF2E0007AE254 /* AppBusinessLogic.swift */,
 				3B977AA418A33B5C6D7A8E1C /* Sidebar.swift */,
 				0F9F0FCA255DF52F007AE254 /* SidebarBusinessLogic.swift */,
@@ -305,6 +308,7 @@
 				58565DCEB3F63E1896774160 /* DeviceListModel.swift in Sources */,
 				0F9F0FC7255DF2E0007AE254 /* AppBusinessLogic.swift in Sources */,
 				17C23C14CC3CCCEECC4FEE5D /* DeviceListView.swift in Sources */,
+				0F9F0FD7255DF6D2007AE254 /* AppView.swift in Sources */,
 				0F9F0FCB255DF52F007AE254 /* SidebarBusinessLogic.swift in Sources */,
 				A09067564A797DCB62FEFE56 /* App.swift in Sources */,
 				0F9F0FBD255DEB43007AE254 /* FeedSubscriber.swift in Sources */,
