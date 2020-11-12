@@ -58,6 +58,9 @@ public class SVNServerTransceiver: ObservableObject {
   }
 
   func handleClients() {
+    transceiver.peerRemoved = { [weak self] peer in
+        self?.loggedClient.removeValue(forKey: peer.id)
+    }
     transceiver.peerAdded = { [weak self] peer in
       self?.transceiver.send(ServerMultipeerTransceiverAsk.connect, to: [peer])
     }

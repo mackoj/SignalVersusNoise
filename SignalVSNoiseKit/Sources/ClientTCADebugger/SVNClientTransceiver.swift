@@ -53,16 +53,30 @@ public class SVNClientTransceiver {
         self.transceiver.stop()
 
       case .appContext:
-        self.transceiver.broadcast(self.currentSession.appContext)
+        self.transceiver.send(self.currentSession.appContext, to: [peer])
 
       case let .session(id):
-        try? self.broadcastSession(id)
+        do {
+            let sessionFileName = "\(id).json"
+            let sessionFileURL = try self.defaultDocumentURL().appendingPathComponent(sessionFileName)
+            if let data = self.fileManager.contents(atPath: sessionFileURL.path) {
+              let session = try JSONDecoder().decode(AppSession<AnyCodable>.self, from: data)
+                self.transceiver.send(session, to: [peer])
+            }
+        } catch {
+            dump(error)
+        }
 
       case .allSessions:
-        try? self.broadcastSessionList()
+        do {
+            let files = try self.fileManager.contentsOfDirectory(atPath: self.defaultDocumentURL().path)
+            self.transceiver.send(files, to: [peer])
+        } catch {
+            dump(error)
+        }
 
       case .connect:
-        self.transceiver.broadcast(self.currentSession.appContext)
+        self.transceiver.send(self.currentSession.appContext, to: [peer])
       }
     }
   }
@@ -81,24 +95,8 @@ extension SVNClientTransceiver {
     currentSession.addEvent(event)
   }
 
-  func broadcastEvent(_ event: Event<AnyCodable>) {
-    if self.isLive { transceiver.broadcast(event) }
-  }
-
-  func broadcastSession(_ id: String) throws {
-    let sessionFileName = "\(id).json"
-    let sessionFileURL = try self.defaultDocumentURL().appendingPathComponent(sessionFileName)
-    if let data = fileManager.contents(atPath: sessionFileURL.path) {
-      let session = try JSONDecoder().decode(AppSession<AnyCodable>.self, from: data)
-      transceiver.broadcast(session)
-    }
-  }
-
-  func broadcastSessionList() throws {
-    let files = try fileManager.contentsOfDirectory(atPath: self.defaultDocumentURL().path)
-    if !files.isEmpty {
-      transceiver.broadcast(files)
-    }
+    func broadcastEvent(_ event: Event<AnyCodable>, _ peer : Peer? = nil) {
+        if self.isLive { (peer != nil) ? transceiver.send(event, to: [peer!]) :  transceiver.broadcast(event) }
   }
 
   func defaultDocumentURL() throws -> URL {
