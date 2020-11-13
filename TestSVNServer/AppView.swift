@@ -20,11 +20,11 @@ struct AppView: View {
                         then: FeedView.init(store:),
                         else: Text("No Feed")
                     )
-//                    IfLetStore(
-//                        self.store.scope(state: \.timeline, action: AppAction.timeline),
-//                        then: TimelineView.init(store:),
-//                        else: Text("No Timeline")
-//                    )
+                    IfLetStore(
+                        self.store.scope(state: \.timeline, action: AppAction.timeline),
+                        then: TimelineView.init(store:),
+                        else: Text("No Timeline")
+                    )
                 }
             }
         }
