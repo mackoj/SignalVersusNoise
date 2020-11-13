@@ -37,12 +37,10 @@ public enum Source<State: Codable>: Codable {
     var container = encoder.container(keyedBy: CodingKeys.self)
     switch self {
     case let .appLifeCycle(content):
-      var nestedContainer = container.nestedUnkeyedContainer(forKey: .appLifeCycle)
-      try nestedContainer.encode(content)
+      try container.encode(content, forKey: .appLifeCycle)
 
     case let .tcaLifeCycle(content):
-      var nestedContainer = container.nestedUnkeyedContainer(forKey: .tcaLifeCycle)
-      try nestedContainer.encode(content)
+      try container.encode(content, forKey: .tcaLifeCycle)
 
     }
   }

@@ -52,10 +52,35 @@ public class SVNClientTransceiver {
     respondToTransceiver()
     listenAppLifeCycle()
     transceiver.broadcast(ClientMultipeerTransceiverAsk.register)
-    transceiver.broadcast(DebuggerType.client)
     center.addObserver(forName: .deviceDidShakeNotification, object: nil, queue: queue) {
       [weak self] _ in
       self?.transceiver.broadcast(ClientMultipeerTransceiverAsk.askForAttention)
+    }
+  }
+
+  public func sendAllSessions(_ peer: Peer? = nil) {
+    do {
+      let files = try self.fileManager.contentsOfDirectory(
+        atPath: self.defaultDocumentURL().path)
+      var sessions: [String: AppSession<AnyCodable>] = [:]
+      let decoder = JSONDecoder()
+      for aFile in files {
+        let fileURL = try self.defaultDocumentURL().appendingPathComponent(aFile)
+        let obj = try decoder.decode(
+          AppSession<AnyCodable>.self,
+          from: try Data(
+            contentsOf: fileURL
+          )
+        )
+        sessions[aFile] = obj
+      }
+      if peer == nil {
+        self.transceiver.broadcast(sessions)
+      } else {
+        self.transceiver.send(sessions, to: [peer!])
+      }
+    } catch {
+      dump(error)
     }
   }
 
@@ -66,6 +91,7 @@ public class SVNClientTransceiver {
       switch ask {
       case .live:
         self.isLive = !self.isLive
+        self.transceiver.broadcast(DebuggerType.client)
 
       case .disconnect:
         self.transceiver.stop()
@@ -86,20 +112,7 @@ public class SVNClientTransceiver {
         }
 
       case .allSessions:
-        do {
-          let files = try self.fileManager.contentsOfDirectory(
-            atPath: self.defaultDocumentURL().path)
-          var sessions: [String: AppSession<AnyCodable>] = [:]
-          let decoder = JSONDecoder()
-          for aFile in files {
-            let obj = try decoder.decode(
-              AppSession<AnyCodable>.self, from: try Data(contentsOf: URL(fileURLWithPath: aFile)))
-            sessions[aFile] = obj
-          }
-          self.transceiver.send(sessions, to: [peer])
-        } catch {
-          dump(error)
-        }
+        self.sendAllSessions(peer)
 
       case .connect:
         self.transceiver.send(self.currentSession.appContext, to: [peer])

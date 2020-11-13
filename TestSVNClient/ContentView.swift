@@ -6,6 +6,9 @@ struct ContentView: View {
     var body: some View {
         WithViewStore(self.store.scope(state: \.counter)) { viewStore in
             Text("Hello, world! [\(viewStore.state)]").padding()
+            Button("AllSessions") {
+                viewStore.send(.allSessions)
+            }
             Button(action: {
                 viewStore.send(.inc)
             }, label: {

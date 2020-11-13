@@ -7,7 +7,7 @@
   extension SVNClientTransceiver {
     func registerDidEnterBackgroundNotification() {
       notificationCenter.addObserver(
-        forName: UIApplication.didEnterBackgroundNotification,
+        forName: UIApplication.willResignActiveNotification,
         object: nil,
         queue: self.queue
       ) { [weak self] note in
@@ -17,6 +17,7 @@
           let url = try self.defaultDocumentURL().appendingPathComponent(
             "\(self.currentSession.id.uuidString).json")
           try JSONEncoder().encode(self.currentSession).write(to: url)
+          print(url.path)
         } catch {
           dump(error)
         }

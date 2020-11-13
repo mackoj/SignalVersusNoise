@@ -14,7 +14,7 @@ struct ClientItem: View {
     func computedSystemImage(_ item : DeviceListModel.ModelGroup) -> String {
         if let model = item.client?.context?.device.model,
            let deviceModel = DeviceModel(rawValue: model) {
-            return deviceModel.systemImage
+            return item.client?.dType == .server ? "server.rack" : deviceModel.systemImage
         }
         return item.model?.systemImage ?? "xmark.octagon.fill"
     }
@@ -22,7 +22,7 @@ struct ClientItem: View {
     func computedForegroundColor(_ item : DeviceListModel.ModelGroup) -> Color {
          Color.accentColor
     }
-    
+        
     
     var body: some View {
         Group {

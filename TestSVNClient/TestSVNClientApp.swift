@@ -10,6 +10,7 @@ struct AppState : Codable {
 enum AppAction {
     case inc
     case dec
+    case allSessions
 }
 
 struct AppEnvironnement {
@@ -30,6 +31,9 @@ struct AppEnvironnement {
 let appReducer = Reducer<AppState, AppAction, AppEnvironnement> {
     state, action, env in
     switch action {
+    case .allSessions:
+        env.svn.sendAllSessions()
+        
     case .inc:
         state.counter = state.counter + 1
         

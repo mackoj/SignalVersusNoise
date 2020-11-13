@@ -5,8 +5,8 @@ import ComposableArchitecture
 
 @main
 struct TestSVNServerApp: App {
-    var store : Store<AppState, AppAction>
-    
+    var store: Store<AppState, AppAction>
+
     init() {
         store = Store<AppState, AppAction>(
             initialState: AppState(),
