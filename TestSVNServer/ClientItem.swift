@@ -1,8 +1,8 @@
 import SwiftUI
 import ComposableArchitecture
-import ServerTCADebugger
+import ServerTransceiver
 
-struct DeviceListItemView: View {
+struct ClientItem: View {
   let item: DeviceListModel.ModelGroup
   
   var computedText : String {

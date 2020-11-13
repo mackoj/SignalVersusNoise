@@ -26,4 +26,6 @@ targets:
       - package: ComposableArchitecture
         product: ComposableArchitecture
       - package: SignalVSNoiseKit
-        product: ServerTCADebugger
+        product: ServerTransceiver
+      - package: SignalVSNoiseKit
+        product: ServerTransceiverLive

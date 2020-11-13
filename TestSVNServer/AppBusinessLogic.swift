@@ -1,12 +1,12 @@
 import Foundation
 import ComposableArchitecture
-import ServerTCADebugger
+import ServerTransceiver
 import UIKit
 
 struct AppState: Equatable {
-    var feedState: FeedState?
-    var timelineState: TimelineState?
-    var sidebarState: SidebarState = SidebarState(serverState: .preping)
+    var feed: FeedState?
+    var timeline: TimelineState?
+    var sidebar: SidebarState = SidebarState(serverState: .preping)
 }
 
 enum AppAction {
@@ -15,29 +15,39 @@ enum AppAction {
     case timeline(TimelineAction)
 }
 
-let appReducer = Reducer<AppState, AppAction, AppEnvironnement> {
-    state, action, env in
-    switch action {
-    case .sidebar(.reloadDevices):
-        return .none
-    case let .feed(.row(rowIndex, rowAction)):
-        return .none
-    case let .timeline(.item(itemIndex, itemAction)):
-        return .none
+
+
+let appReducer = Reducer<AppState, AppAction, AppEnvironnement>.combine([
+    sidebarReducer.pullback(
+      state: \AppState.sidebar,
+      action: /AppAction.sidebar,
+      environment: { $0 }
+    ),
+
+    Reducer<AppState, AppAction, AppEnvironnement> {
+        state, action, env in
+        switch action {
+        case .sidebar(.reloadDevices):
+            return .none
+
+        case let .feed(.row(rowIndex, rowAction)):
+            return .none
+
+        case let .timeline(.item(itemIndex, itemAction)):
+            return .none
+            
+        case .sidebar(.onInit):
+            return .none
+
+        case let .sidebar(.updateClients(clients)):
+            return .none
+
+        case .sidebar(.client(index: let index, action: let action)):
+            return .none
+        }
     }
-}
+])
 
 struct AppEnvironnement {
-    var serverTransceiver : SVNServerTransceiver
-//    var clientTransceiver : SVNClientTransceiver
-    
-    init() {
-        serverTransceiver = SVNServerTransceiver(
-            UIDevice.current.name,
-            nil,
-            NotificationCenter.default,
-            Bundle.main,
-            FileManager.default
-        )
-    }
+    var serverTransceiver : ServerTransceiver
 }

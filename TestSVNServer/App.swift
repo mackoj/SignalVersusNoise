@@ -1,5 +1,6 @@
 import SwiftUI
-import ServerTCADebugger
+import ServerTransceiver
+import ServerTransceiverLive
 import ComposableArchitecture
 
 @main
@@ -10,7 +11,16 @@ struct TestSVNServerApp: App {
         store = Store<AppState, AppAction>(
             initialState: AppState(),
             reducer: appReducer,
-            environment: AppEnvironnement()
+            environment: AppEnvironnement.init(
+                serverTransceiver:
+                    ServerTransceiver.prod(
+                        UIDevice.current.name,
+                        nil,
+                        NotificationCenter.default,
+                        Bundle.main,
+                        FileManager.default
+                    )
+            )
         )
     }
     

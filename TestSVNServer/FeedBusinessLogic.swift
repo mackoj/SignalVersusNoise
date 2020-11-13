@@ -1,10 +1,10 @@
 import Foundation
 import ComposableArchitecture
-import ServerTCADebugger
+import ServerTransceiver
 
 struct FeedState: Equatable {
     var id: String { client.peer.id }
-    let client : SVNServerTransceiver.Client
+    let client : ServerTransceiver.Client
     var rows: IdentifiedArrayOf<Feed>
 //    var selection: Identified<Feed.ID, FeedState>?
 }

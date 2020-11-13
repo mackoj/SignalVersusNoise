@@ -8,20 +8,20 @@ struct AppView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             NavigationView {
-                Sidebar(store: self.store.scope(state: \.sidebarState, action: AppAction.sidebar))
-                if viewStore.feedState == nil && viewStore.feedState == nil {
+                Sidebar(store: self.store.scope(state: \.sidebar, action: AppAction.sidebar))
+                if viewStore.feed == nil && viewStore.timeline == nil {
                     VStack {
                         Image(systemName: "trash")
                         Text("Nothing")
                     }
                 } else {
                     IfLetStore(
-                        self.store.scope(state: \.feedState, action: AppAction.feed),
+                        self.store.scope(state: \.feed, action: AppAction.feed),
                         then: FeedView.init(store:),
                         else: Text("No Feed")
                     )
                     IfLetStore(
-                        self.store.scope(state: \.timelineState, action: AppAction.timeline),
+                        self.store.scope(state: \.timeline, action: AppAction.timeline),
                         then: TimelineView.init(store:),
                         else: Text("No Timeline")
                     )

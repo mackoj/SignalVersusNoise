@@ -7,7 +7,9 @@
 
 import SwiftUI
 import Combine
-import ServerTCADebugger
+import ServerTransceiver
+import ComposableArchitecture
+
 
 class DeviceListModel: ObservableObject {
     
@@ -29,28 +31,28 @@ class DeviceListModel: ObservableObject {
         
         let id: UUID = UUID()
         let model: DeviceModel?
-        var client: SVNServerTransceiver.Client?
+        var client: ServerTransceiver.Client?
         var contents: [ModelGroup]?
         
-        init(branch: [SVNServerTransceiver.Client], model: DeviceModel) {
+        init(branch: [ServerTransceiver.Client], model: DeviceModel) {
             self.model = model
             self.contents = branch.map { ModelGroup(leaf: $0) }
             self.client = nil
         }
         
-        init(leaf: SVNServerTransceiver.Client) {
+        init(leaf: ServerTransceiver.Client) {
             self.model = nil
             self.contents = nil
             self.client = leaf
         }
     }
     
-    init(_ clients :  [String : SVNServerTransceiver.Client] = [:]) {
+    init(_ clients :  IdentifiedArrayOf<ServerTransceiver.Client>) {
         var localGroups : [ModelGroup] = []
-        let localGroupsOrganized : [DeviceModel : [SVNServerTransceiver.Client]] = clients.reduce(into: [DeviceModel : [SVNServerTransceiver.Client]]()) { (res, client) in
-            let model = DeviceModel(rawValue: client.value.context?.device.model ?? "🤷🏾‍♂️") ?? .unknow("not possible")
+        let localGroupsOrganized : [DeviceModel : [ServerTransceiver.Client]] = clients.reduce(into: [DeviceModel : [ServerTransceiver.Client]]()) { (res, client) in
+            let model = DeviceModel(rawValue: client.context?.device.model ?? "🤷🏾‍♂️") ?? .unknow("not possible")
             var groupContent = res[model] ?? []
-            groupContent.append(client.value)
+            groupContent.append(client)
             res[model] = groupContent
         }
         
@@ -61,7 +63,7 @@ class DeviceListModel: ObservableObject {
         self.groups = localGroups
     }
     
-    func getDevice(modeGroupID: ModelGroup.ID?) -> SVNServerTransceiver.Client? {
+    func getDevice(modeGroupID: ModelGroup.ID?) -> ServerTransceiver.Client? {
         guard let id = modeGroupID else { return nil }
         
         for itm in groups {

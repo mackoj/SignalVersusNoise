@@ -12,8 +12,12 @@ let package = Package(
       targets: ["ClientTCADebugger"]
     ),
     .library(
-      name: "ServerTCADebugger",
-      targets: ["ServerTCADebugger"]
+      name: "ServerTransceiver",
+      targets: ["ServerTransceiver"]
+    ),
+    .library(
+      name: "ServerTransceiverLive",
+      targets: ["ServerTransceiverLive"]
     ),
     .library(
       name: "SharedCode",
@@ -37,11 +41,18 @@ let package = Package(
       ]
     ),
     .target(
-      name: "ServerTCADebugger",
+      name: "ServerTransceiverLive",
       dependencies: [
         "MultipeerKit",
-        "AnyCodable",
+        "ServerTransceiver",
+      ]
+    ),
+    .target(
+      name: "ServerTransceiver",
+      dependencies: [
         "SharedCode",
+        "AnyCodable",
+        "MultipeerKit",
       ]
     ),
     .target(
