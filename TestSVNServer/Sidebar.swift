@@ -2,28 +2,21 @@ import SwiftUI
 import ComposableArchitecture
 import ServerTransceiver
 
-struct ClientList: View {
-    var model : DeviceListModel
-
-    init(_ clients : IdentifiedArrayOf<ServerTransceiver.Client>) {
-        self.model = DeviceListModel(clients)
-    }
-
-    var body: some View {
-        List(model.groups, children: \.contents) { item in
-            ClientItem(item: item)
-        }
-        .listStyle(SidebarListStyle())
-    }
-}
-
 struct Sidebar: View {
-
     let store : Store<SidebarState, SidebarAction>
+    @State private var selection: UUID? = nil
 
     public init(store: Store<SidebarState, SidebarAction>) {
         self.store = store
         ViewStore(self.store).send(.onInit)
+    }
+    
+    func model(_ viewStore : ViewStore<SidebarState, SidebarAction>) -> DeviceListModel {
+        DeviceListModel(viewStore.clients)
+    }
+    
+    func selectedPeerName(_ viewStore : ViewStore<SidebarState, SidebarAction>) -> String {
+        model(viewStore).getDevice(modeGroupID: selection)?.peer.name ?? "n/a"
     }
     
     var body: some View {
@@ -36,7 +29,12 @@ struct Sidebar: View {
                 }
             case .ready:
                 VStack {
-                    ClientList(viewStore.clients)
+                    Text("Selected Client = \(selectedPeerName(viewStore))")
+                        .foregroundColor(selection == nil ? Color.secondary : Color.green)
+                        .font(.title2)
+                    List(model(viewStore).groups, children: \.contents, selection: $selection) { item in
+                        ClientItem(item: item)
+                    }.listStyle(SidebarListStyle())
                 }
             }
         }

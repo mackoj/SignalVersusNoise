@@ -15,7 +15,7 @@ class DeviceListModel: ObservableObject {
     
     @Published var groups: [ModelGroup] = []
     
-    struct ModelGroup : Identifiable/*, Comparable*/ {
+    struct ModelGroup : Identifiable, Equatable/*, Comparable*/ {
 //        static func < (lhs: DeviceListModel.ModelGroup, rhs: DeviceListModel.ModelGroup) -> Bool {
 //            return true
 ////            if let lhsRawValue = lhs.model?.clie,

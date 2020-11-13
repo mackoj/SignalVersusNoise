@@ -3,71 +3,46 @@ import ComposableArchitecture
 import ServerTransceiver
 
 struct ClientItem: View {
-  let item: DeviceListModel.ModelGroup
-  
-  var computedText : String {
-    item.model?.rawValue ?? "\(item.client!.peer.name)"
-  }
     
-  var computedSystemImage : String {
-    if let model = item.client?.context?.device.model,
-       let deviceModel = DeviceModel(rawValue: model) {
-        return deviceModel.systemImage
+    //    let store: Store<DeviceListModel.ModelGroup, ClientItemAction>
+    let item: DeviceListModel.ModelGroup
+    
+    func computedText(_ item : DeviceListModel.ModelGroup) -> String {
+        item.model?.rawValue ?? "\(item.client!.peer.name)"
     }
-    return item.model?.systemImage ?? "xmark.octagon.fill"
-  }
-  
-  var computedForegroundColor: Color {
-    /*item.device?.color ??*/ Color.accentColor
-  }
-  
-  var body: some View {
-    Group {
-      if item.model != nil { // Section
-        Label(computedText, systemImage: computedSystemImage)
-          .tag(item.id)
-      } else { // Device
-        HStack {
-          Image(systemName: computedSystemImage).foregroundColor(computedForegroundColor)
-          Text(computedText)
-        }.tag(item.id)
-      }
+    
+    func computedSystemImage(_ item : DeviceListModel.ModelGroup) -> String {
+        if let model = item.client?.context?.device.model,
+           let deviceModel = DeviceModel(rawValue: model) {
+            return deviceModel.systemImage
+        }
+        return item.model?.systemImage ?? "xmark.octagon.fill"
     }
-  }
+    
+    func computedForegroundColor(_ item : DeviceListModel.ModelGroup) -> Color {
+         Color.accentColor
+    }
+    
+    
+    var body: some View {
+        Group {
+            if item.model != nil { // Section
+                Label(
+                    computedText(item),
+                    systemImage: computedSystemImage(item)
+                )
+            } else { // Client
+                HStack {
+                    Image(systemName: computedSystemImage(item))
+                        .foregroundColor(computedForegroundColor(item))
+                    Text(computedText(item))
+                    if (item.client?.hasAskForAttention ?? false) == true {
+                        Image(systemName: "hand.wave")
+                    }
+                }.tag(item.id)
+                .background((item.client?.hasAskForAttention ?? false) ? Color.yellow : Color.clear)
+            }
+        }
+    }
 }
 
-//struct DeviceListItemView_Leaf_Previews: PreviewProvider {
-//  static var previews: some View {
-//    DeviceListItemView(item:
-//                        DeviceListModel.ModelGroup(
-//                          leaf: Device(
-//                            name: "Tel 1",
-//                            model: .iPhone,
-//                            app: "com.pikachu.fr",
-//                            color: .blue,
-//                            message: "Blablabla"
-//                          )
-//                        )
-//    ).previewLayout(.sizeThatFits)
-//  }
-//}
-//
-//struct DeviceListItemView_Branch_Empty_Previews: PreviewProvider {
-//  static var previews: some View {
-//    DeviceListItemView(item: DeviceListModel.ModelGroup(branch: [], model: .iPhone)).previewLayout(.sizeThatFits)
-//  }
-//}
-//
-//struct DeviceListItemView_Branch_Previews: PreviewProvider {
-//  static var previews: some View {
-//    DeviceListItemView(item: DeviceListModel.ModelGroup(branch: [
-//      Device(
-//        name: "Tel 1",
-//        model: .iPhone,
-//        app: "com.pikachu.fr",
-//        color: .blue,
-//        message: "Blablabla"
-//      )
-//    ], model: .iPhone)).previewLayout(.sizeThatFits)
-//  }
-//}

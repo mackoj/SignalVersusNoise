@@ -15,15 +15,15 @@
 		41A5E9B25D0ECC368668FD65 /* SidebarBusinessLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C2CBEC62C57FF5F077D67A /* SidebarBusinessLogic.swift */; };
 		58565DCEB3F63E1896774160 /* DeviceListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5EC1017F2BB9345CBA6EBF /* DeviceListModel.swift */; };
 		5AD22D69429666DAC381B15E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC662E0A60749485261CFCD /* ContentView.swift */; };
-		5B3C707CBB383DF20E30DF40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5490784BFD426D437ABD56A /* Assets.xcassets */; };
 		7A3489B8B2A9165FB4515B90 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = D455C8EA7601E18824B4F16C /* ComposableArchitecture */; };
 		8071F0F8504D862BFDDFB38F /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F93C60395E8F5F566B8DBEE /* Array.swift */; };
 		80D123790A3A51B10E8DA1FE /* FeedSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE03EE6D98879DAC26BE5D0F /* FeedSubscriber.swift */; };
 		8A1B4755D15191E0DBD6839C /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51EFD885B400A33E4471CAE /* Feed.swift */; };
 		8B87D921513E57A08C9D4479 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C06BFFB351DFA369D33F2DB9 /* Preview Assets.xcassets */; };
 		AAE76668B5F61D0D42E9996D /* ServerTransceiverLive in Frameworks */ = {isa = PBXBuildFile; productRef = 0BB07F528956675F5550D853 /* ServerTransceiverLive */; };
-		BDE34D7867BA4B042A297A90 /* ClientItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DA9FA859B3DBA304CDA537 /* ClientItem.swift */; };
 		CC5D22F7E6610FEF83FB8860 /* AppBusinessLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC925B907DF070E3BE457A9 /* AppBusinessLogic.swift */; };
+		CDC45537931B656D307000E8 /* ClientItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD9C69A38864650F25CBD85 /* ClientItem.swift */; };
+		CE2D1F232541B90EF2255195 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38394327E7670D0574DCD28E /* Assets.xcassets */; };
 		CFAFA49E6B6D04BFA6E4053F /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B87D4873DC18DAAACB319D4 /* FeedView.swift */; };
 		D5FC21982B74646F005AB097 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF0B05B2776655F85AE752A /* TimelineView.swift */; };
 		D753A75F2ACF997AEC9F96B1 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F759E087AAA12C8B341AB1 /* Sidebar.swift */; };
@@ -41,21 +41,21 @@
 		085DEDABC681A66323C0F9EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0B87D4873DC18DAAACB319D4 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		0F13FDE00C53CB34C8CA7370 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		1675D70FDE850C88192CB875 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18F26DDDBB0E4EA376CCD0F4 /* TimelineBusinessLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineBusinessLogic.swift; sourceTree = "<group>"; };
+		26E5E933AB2D6468D5B0FDD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2CC925B907DF070E3BE457A9 /* AppBusinessLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBusinessLogic.swift; sourceTree = "<group>"; };
+		38394327E7670D0574DCD28E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45D42F4A253A7C05C0B2A3DF /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
-		4A219D09F1954565E7AFAFD0 /* TestSVNClient.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = TestSVNClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A219D09F1954565E7AFAFD0 /* TestSVNClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestSVNClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51CA949E487B83044EC48B36 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		58DA9FA859B3DBA304CDA537 /* ClientItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientItem.swift; sourceTree = "<group>"; };
 		64F759E087AAA12C8B341AB1 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
+		6AD9C69A38864650F25CBD85 /* ClientItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientItem.swift; sourceTree = "<group>"; };
 		74A3F4A3A9F396AB8D4E94F0 /* TestSVNClientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSVNClientApp.swift; sourceTree = "<group>"; };
 		7C77CA067E4A578EA75E5433 /* SignalVSNoiseKit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SignalVSNoiseKit; sourceTree = SOURCE_ROOT; };
 		7F93C60395E8F5F566B8DBEE /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		8B5EC1017F2BB9345CBA6EBF /* DeviceListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListModel.swift; sourceTree = "<group>"; };
 		956603B6BC2EDCA024E12846 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		99B4C2D22BA4631513E79C82 /* TestSVNServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestSVNServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5490784BFD426D437ABD56A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7C2CBEC62C57FF5F077D67A /* SidebarBusinessLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarBusinessLogic.swift; sourceTree = "<group>"; };
 		AF29DD510B075808A8E6B1FA /* ComposableArchitecture */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ComposableArchitecture; sourceTree = SOURCE_ROOT; };
 		C06BFFB351DFA369D33F2DB9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -90,15 +90,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0F578404255EC79B00516DFE /* Other */ = {
-			isa = PBXGroup;
-			children = (
-				A5490784BFD426D437ABD56A /* Assets.xcassets */,
-				1675D70FDE850C88192CB875 /* Info.plist */,
-			);
-			path = Other;
-			sourceTree = "<group>";
-		};
 		25912280CFFCCDDB92912A1F /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,8 +105,7 @@
 				956603B6BC2EDCA024E12846 /* App.swift */,
 				2CC925B907DF070E3BE457A9 /* AppBusinessLogic.swift */,
 				45D42F4A253A7C05C0B2A3DF /* AppView.swift */,
-				0F578404255EC79B00516DFE /* Other */,
-				58DA9FA859B3DBA304CDA537 /* ClientItem.swift */,
+				6AD9C69A38864650F25CBD85 /* ClientItem.swift */,
 				D51EFD885B400A33E4471CAE /* Feed.swift */,
 				FFB698E64741B1E9A2D61111 /* FeedBusinessLogic.swift */,
 				EE03EE6D98879DAC26BE5D0F /* FeedSubscriber.swift */,
@@ -126,9 +116,19 @@
 				DCF0B05B2776655F85AE752A /* TimelineView.swift */,
 				AFA62368C4E1FFEB9101F23D /* Helpers */,
 				25912280CFFCCDDB92912A1F /* Model */,
+				6BC6FD7A736CC3B60949792D /* Other */,
 				CCFD257D04FF96A5705F143A /* Preview Content */,
 			);
 			path = TestSVNServer;
+			sourceTree = "<group>";
+		};
+		6BC6FD7A736CC3B60949792D /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				38394327E7670D0574DCD28E /* Assets.xcassets */,
+				26E5E933AB2D6468D5B0FDD7 /* Info.plist */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 		6F3A6FD88FA8898A372DB040 /* Products */ = {
@@ -273,7 +273,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B3C707CBB383DF20E30DF40 /* Assets.xcassets in Resources */,
+				CE2D1F232541B90EF2255195 /* Assets.xcassets in Resources */,
 				8B87D921513E57A08C9D4479 /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,8 +307,8 @@
 				CC5D22F7E6610FEF83FB8860 /* AppBusinessLogic.swift in Sources */,
 				F80AA9644E6674950A1714CB /* AppView.swift in Sources */,
 				8071F0F8504D862BFDDFB38F /* Array.swift in Sources */,
+				CDC45537931B656D307000E8 /* ClientItem.swift in Sources */,
 				3F763B8D887BB946FC26E13E /* Color.swift in Sources */,
-				BDE34D7867BA4B042A297A90 /* ClientItem.swift in Sources */,
 				58565DCEB3F63E1896774160 /* DeviceListModel.swift in Sources */,
 				22387E13593D0ED813D6B7C2 /* DeviceModel.swift in Sources */,
 				8A1B4755D15191E0DBD6839C /* Feed.swift in Sources */,
@@ -330,6 +330,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 8XF24Z96S9;
 				INFOPLIST_FILE = TestSVNServer/Other/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -346,6 +347,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 8XF24Z96S9;
 				INFOPLIST_FILE = TestSVNServer/Other/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -481,6 +483,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 8XF24Z96S9;
 				INFOPLIST_FILE = TestSVNClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -497,6 +500,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 8XF24Z96S9;
 				INFOPLIST_FILE = TestSVNClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -94,6 +94,10 @@ extension ServerTransceiver {
         case .register:
           transceiver.send(ServerMultipeerTransceiverAsk.connect, to: [peer])
           transceiver.send(ServerMultipeerTransceiverAsk.live, to: [peer])
+        case .askForAttention:
+          var obj = loggedClient[peer.id] ?? Client(peer: peer)
+          obj.hasAskForAttention = true
+          loggedClient[peer.id] = obj
         }
       }
 

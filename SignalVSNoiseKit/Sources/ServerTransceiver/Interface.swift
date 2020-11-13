@@ -33,6 +33,7 @@ public struct ServerTransceiver {
     public var sessionFiles: [String] = []
     public var sessions: [String: AppSession<AnyCodable>] = [:]
     public var events: [TimeInterval: Event<AnyCodable>] = [:]
+    public var hasAskForAttention: Bool = false
 
     public init(
       peer: Peer,

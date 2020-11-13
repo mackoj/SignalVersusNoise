@@ -22,7 +22,7 @@ struct SidebarState: Equatable {
     var clients: IdentifiedArrayOf<ServerTransceiver.Client> = []
 }
 
-enum SidebarClientAction {
+enum ClientItemAction {
     case tapped
 }
 
@@ -30,7 +30,7 @@ enum SidebarAction {
     case onInit
     case reloadDevices
     case updateClients(ServerTransceiver.Clients)
-    case client(index: String, action: SidebarClientAction)
+    case client(index: String, action: ClientItemAction)
 }
 
 let sidebarReducer = Reducer<SidebarState, SidebarAction, AppEnvironnement> {

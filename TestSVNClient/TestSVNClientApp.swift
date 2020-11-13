@@ -13,7 +13,7 @@ enum AppAction {
 }
 
 struct AppEnvironnement {
-    var svn : SVNClientTransceiver
+    var svn: SVNClientTransceiver
     
     init() {
         svn = SVNClientTransceiver(

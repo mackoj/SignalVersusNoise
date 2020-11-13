@@ -2,6 +2,19 @@ import AnyCodable
 import Foundation
 import MultipeerKit
 import SharedCode
+import UIKit
+
+extension NSNotification.Name {
+  public static let deviceDidShakeNotification = NSNotification.Name(
+    "ShakeItShakeShakeItShakeItOhOh")
+}
+
+extension UIWindow {
+  open override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+    super.motionEnded(motion, with: event)
+    NotificationCenter.default.post(name: .deviceDidShakeNotification, object: event)
+  }
+}
 
 struct Constant {
   static let folder: String = "svn"
@@ -40,6 +53,10 @@ public class SVNClientTransceiver {
     listenAppLifeCycle()
     transceiver.broadcast(ClientMultipeerTransceiverAsk.register)
     transceiver.broadcast(DebuggerType.client)
+    center.addObserver(forName: .deviceDidShakeNotification, object: nil, queue: queue) {
+      [weak self] _ in
+      self?.transceiver.broadcast(ClientMultipeerTransceiverAsk.askForAttention)
+    }
   }
 
   func respondToTransceiver() {
