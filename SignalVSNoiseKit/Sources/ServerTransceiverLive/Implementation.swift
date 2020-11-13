@@ -37,33 +37,34 @@ extension ServerTransceiver {
       }
 
       transceiver.peerAdded = { peer in
-        transceiver.send(ServerMultipeerTransceiverAsk.connect, to: [peer])
+        if let deleted = loggedClient.removeValue(forKey: peer.id) {
+          print("👻")
+          dump(deleted)
+        }
+        loggedClient[peer.id] = Client(peer: peer)
       }
 
       transceiver.availablePeersDidChange = { peers in
-        let connectedIDs = peers.filter { $0.isConnected }
-        //        let identifiedPeers = loggedClient.map { $0.value.peer }
-        var peerToConnect: [Peer] = []
-        for aConnectedPeer in connectedIDs {
-          if loggedClient.contains(where: {
-            ($0.value.peer.id == aConnectedPeer.id && $0.value.isConnected)
-          }) {
-            continue
-          }
-          peerToConnect.append(aConnectedPeer)
-        }
-        if !peerToConnect.isEmpty {
-          let invitedPeers = peerToConnect.map(\.name).joined(separator: ", ")
-          print("[\(invitedPeers)] has been invited to joined the party 🚀")
-          transceiver.send(ServerMultipeerTransceiverAsk.connect, to: peerToConnect)
-          transceiver.send(ServerMultipeerTransceiverAsk.allSessions, to: peerToConnect)
-        }
+        let connectedIDs = peers.filter { $0.isConnected }.map { $0.id }
+        if connectedIDs.isEmpty { return }
+
+        if loggedClient.isEmpty { return }
+        var peerToConnect: [Peer] = loggedClient.lazy
+          .filter { connectedIDs.contains($0.value.peer.id) && $0.value.isLogged == false }
+          .map { $0.value.peer }
+        if peerToConnect.isEmpty { return }
+
+        let invitedPeers = peerToConnect.map(\.name).joined(separator: ", ")
+        print("[\(invitedPeers)] has been invited to joined the party 🚀")
+        transceiver.send(ServerMultipeerTransceiverAsk.connect, to: peerToConnect)
+        transceiver.send(ServerMultipeerTransceiverAsk.allSessions, to: peerToConnect)
       }
 
       // MARK: ServerMultipeerTransceiverAsk.connect
       transceiver.receive(DebuggerType.self) { (dtype, peer) in
         var obj = loggedClient[peer.id] ?? Client(peer: peer)
         obj.dType = dtype
+        obj.isLogged = true
         loggedClient[peer.id] = obj
       }
 
@@ -71,7 +72,7 @@ extension ServerTransceiver {
       transceiver.receive(AppContext.self) { (context: AppContext, peer) in
         var obj = loggedClient[peer.id] ?? Client(peer: peer)
         obj.context = context
-        obj.isConnected = true
+        obj.isLogged = true
         loggedClient[peer.id] = obj
         transceiver.send(ServerMultipeerTransceiverAsk.live, to: [peer])
       }

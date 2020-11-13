@@ -30,30 +30,41 @@ enum DeviceModel : RawRepresentable, Hashable {
     case simulator(String)
     case unknow(String)
     
-    init?(rawValue: String) {
-        if rawValue.contains("AppleTV") {
-            self = .tv(rawValue)
+    init?(rawValue: String?) {
+        guard let rawValue = rawValue else {
+            self = .unknow("􀥠")
+            return
         }
-        else if rawValue.contains("iPad") {
-            self = .iPad(rawValue)
-        }
-        else if rawValue.contains("iPhone") {
-            self = .iPhone(rawValue)
-        }
-        else if rawValue.contains("iPod") {
-            self = .iPod(rawValue)
-        }
-        else if rawValue.contains("Watch") {
-            self = .watch(rawValue)
-        }
-        else if rawValue.contains("i386") || rawValue.contains("x86_64") {
-            self = .simulator(rawValue)
-        }
-        else {
-            self = .unknow(rawValue)
-        }
+        self = DeviceModel.knowSelf(rawValue: rawValue)
     }
     
+    init?(rawValue: String) {
+        self = DeviceModel.knowSelf(rawValue: rawValue)
+    }
+    
+    static func knowSelf(rawValue: String) -> Self {
+        if rawValue.contains("AppleTV") {
+            return .tv(rawValue)
+        }
+        else if rawValue.contains("iPad") {
+            return .iPad(rawValue)
+        }
+        else if rawValue.contains("iPhone") {
+            return .iPhone(rawValue)
+        }
+        else if rawValue.contains("iPod") {
+            return .iPod(rawValue)
+        }
+        else if rawValue.contains("Watch") {
+            return .watch(rawValue)
+        }
+        else if rawValue.contains("i386") || rawValue.contains("x86_64") {
+            return .simulator(rawValue)
+        }
+        else {
+            return .unknow(rawValue)
+        }
+    }
     var systemImage : String {
         switch self {
         case .iPhone:
