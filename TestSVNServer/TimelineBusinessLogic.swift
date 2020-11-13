@@ -1,8 +1,8 @@
 import Foundation
 import ComposableArchitecture
 
-struct TimelineState: Equatable {
-    var id: UUID { feed.id }
+struct TimelineState: Equatable, Identifiable {
+    var id: String { feed.id }
     let feed: Feed
 }
 

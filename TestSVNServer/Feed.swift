@@ -7,7 +7,7 @@ struct Feed: Equatable, Identifiable {
         lhs.id == rhs.id
     }
     
-    let id: UUID
+    let id: String
     var live: FeedSubscriber?
-    var sessions: [AppSession<AnyCodable>] = []
+    var session: AppSession<AnyCodable>? 
 }

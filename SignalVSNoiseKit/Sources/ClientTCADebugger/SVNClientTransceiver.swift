@@ -89,7 +89,14 @@ public class SVNClientTransceiver {
         do {
           let files = try self.fileManager.contentsOfDirectory(
             atPath: self.defaultDocumentURL().path)
-          self.transceiver.send(files, to: [peer])
+          var sessions: [String: AppSession<AnyCodable>] = [:]
+          let decoder = JSONDecoder()
+          for aFile in files {
+            let obj = try decoder.decode(
+              AppSession<AnyCodable>.self, from: try Data(contentsOf: URL(fileURLWithPath: aFile)))
+            sessions[aFile] = obj
+          }
+          self.transceiver.send(sessions, to: [peer])
         } catch {
           dump(error)
         }

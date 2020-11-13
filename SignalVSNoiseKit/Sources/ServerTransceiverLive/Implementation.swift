@@ -40,33 +40,50 @@ extension ServerTransceiver {
         transceiver.send(ServerMultipeerTransceiverAsk.connect, to: [peer])
       }
 
-      transceiver.receive(DebuggerType.self) { (dtype, peer) in
-        var obj = loggedClient[peer.id] ?? Client(peer: peer)
-        obj.dType = dtype
-        loggedClient[peer.id] = obj
-      }
-
       transceiver.availablePeersDidChange = { peers in
         let connectedIDs = peers.filter { $0.isConnected }
-        let identifiedPeers = loggedClient.map { $0.value.peer }
+        //        let identifiedPeers = loggedClient.map { $0.value.peer }
         var peerToConnect: [Peer] = []
         for aConnectedPeer in connectedIDs {
-          if identifiedPeers.contains(where: { $0.id == aConnectedPeer.id }) { continue }
+          if loggedClient.contains(where: {
+            ($0.value.peer.id == aConnectedPeer.id && $0.value.isConnected)
+          }) {
+            continue
+          }
           peerToConnect.append(aConnectedPeer)
         }
         if !peerToConnect.isEmpty {
           let invitedPeers = peerToConnect.map(\.name).joined(separator: ", ")
           print("[\(invitedPeers)] has been invited to joined the party 🚀")
           transceiver.send(ServerMultipeerTransceiverAsk.connect, to: peerToConnect)
+          transceiver.send(ServerMultipeerTransceiverAsk.allSessions, to: peerToConnect)
         }
       }
 
+      // MARK: ServerMultipeerTransceiverAsk.connect
+      transceiver.receive(DebuggerType.self) { (dtype, peer) in
+        var obj = loggedClient[peer.id] ?? Client(peer: peer)
+        obj.dType = dtype
+        loggedClient[peer.id] = obj
+      }
+
+      // MARK: ServerMultipeerTransceiverAsk.appContext
+      transceiver.receive(AppContext.self) { (context: AppContext, peer) in
+        var obj = loggedClient[peer.id] ?? Client(peer: peer)
+        obj.context = context
+        obj.isConnected = true
+        loggedClient[peer.id] = obj
+        transceiver.send(ServerMultipeerTransceiverAsk.live, to: [peer])
+      }
+
+      // MARK: ServerMultipeerTransceiverAsk.live
       transceiver.receive(Event<AnyCodable>.self) { (event: Event<AnyCodable>, peer) in
         var obj = loggedClient[peer.id] ?? Client(peer: peer)
         obj.events[event.timestamp] = event
         loggedClient[peer.id] = obj
       }
 
+      // MARK: ServerMultipeerTransceiverAsk.session
       transceiver.receive(AppSession<AnyCodable>.self) {
         (appSession: AppSession<AnyCodable>, peer) in
 
@@ -75,25 +92,27 @@ extension ServerTransceiver {
         loggedClient[peer.id] = obj
       }
 
-      transceiver.receive([String].self) { (sessions: [String], peer) in
+      // MARK: ServerMultipeerTransceiverAsk.allSessions
+      transceiver.receive([String: AppSession<AnyCodable>].self) {
+        (sessions: [String: AppSession<AnyCodable>], peer) in
+
         var obj = loggedClient[peer.id] ?? Client(peer: peer)
-        obj.sessionFiles = sessions
+        obj.sessions = sessions
         loggedClient[peer.id] = obj
       }
 
-      transceiver.receive(AppContext.self) { (context: AppContext, peer) in
-        var obj = loggedClient[peer.id] ?? Client(peer: peer)
-        obj.context = context
-        loggedClient[peer.id] = obj
-        transceiver.send(ServerMultipeerTransceiverAsk.live, to: [peer])
-      }
+      // MARK: ServerMultipeerTransceiverAsk.disconnect
+      // do noting on server side
 
+      // MARK: ClientMultipeerTransceiverAsk.register
+      // MARK: ClientMultipeerTransceiverAsk.askForAttention
       transceiver.receive(ClientMultipeerTransceiverAsk.self) {
         (ask: ClientMultipeerTransceiverAsk, peer) in
         switch ask {
         case .register:
           transceiver.send(ServerMultipeerTransceiverAsk.connect, to: [peer])
           transceiver.send(ServerMultipeerTransceiverAsk.live, to: [peer])
+          transceiver.send(ServerMultipeerTransceiverAsk.allSessions, to: [peer])
         case .askForAttention:
           var obj = loggedClient[peer.id] ?? Client(peer: peer)
           obj.hasAskForAttention = true

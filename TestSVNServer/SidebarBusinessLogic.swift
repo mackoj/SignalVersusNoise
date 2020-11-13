@@ -20,6 +20,7 @@ struct SidebarState: Equatable {
     }
     var serverState: ServerState = .preping
     var clients: IdentifiedArrayOf<ServerTransceiver.Client> = []
+    var selectedClient: DeviceListModel.ModelGroup.ID? = nil
 }
 
 enum ClientItemAction {
@@ -27,6 +28,7 @@ enum ClientItemAction {
 }
 
 enum SidebarAction {
+    case clientSelection(UUID?)
     case onInit
     case reloadDevices
     case updateClients(ServerTransceiver.Clients)
@@ -57,6 +59,10 @@ let sidebarReducer = Reducer<SidebarState, SidebarAction, AppEnvironnement> {
     case let .updateClients(clients):
         state.serverState = clients.isEmpty ? .preping : .ready
         state.clients = IdentifiedArrayOf<ServerTransceiver.Client>.init(clients.map { $0.value })
+        
+    case let .clientSelection(selectedClient):
+        state.selectedClient = selectedClient
+        break
     }
     return .none
 }
