@@ -42,8 +42,10 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironnement>.combine([
         case let .sidebar(.updateClients(clients)):
             if let client = clients.first?.value {
                 let arrayOfFeed = IdentifiedArrayOf<Feed>(client.sessions.map { Feed(id: $0.key, live: nil, session: $0.value) })
-                print("🦄 \(arrayOfFeed)")
-                state.feed = FeedState(client: client, rows: arrayOfFeed)
+                if !arrayOfFeed.isEmpty {
+                    print("🦄 \(arrayOfFeed)")
+                    state.feed = FeedState(client: client, rows: arrayOfFeed)
+                }
             }
             return .none
 

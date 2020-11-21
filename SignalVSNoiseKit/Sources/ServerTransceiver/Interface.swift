@@ -26,32 +26,6 @@ public struct ServerTransceiver {
     self.stop = stop
   }
 
-  public struct Client: Equatable {
-    public let peer: Peer
-    public var dType: DebuggerType = .unknown
-    public var context: AppContext?
-    public var sessionFiles: [String] = []
-    public var sessions: [String: AppSession<AnyCodable>] = [:]
-    public var events: [TimeInterval: Event<AnyCodable>] = [:]
-    public var hasAskForAttention: Bool = false
-    public var isLogged: Bool = false
-
-    public init(
-      peer: Peer,
-      context: AppContext? = nil,
-      sessionFiles: [String] = [],
-      sessions: [String: AppSession<AnyCodable>] = [:]
-    ) {
-      self.peer = peer
-      self.context = context
-      self.sessionFiles = sessionFiles
-      self.sessions = sessions
-    }
-  }
-
-  public enum Action {
-
-  }
 }
 
 /*

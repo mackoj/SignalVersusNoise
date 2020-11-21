@@ -6,6 +6,46 @@ import ServerTransceiver
 import SharedCode
 
 extension ServerTransceiver {
+//    public func toto<T: Codable>(
+//        _ payload: T,
+//        _ peer: Peer,
+//        _ loggedClient: Clients,
+//        _ transceiver : MultipeerTransceiver
+//    ) -> Clients {
+//        switch type(of: payload) {
+//        case DebuggerType.self:
+//            var obj = loggedClient[peer.id] ?? Client(peer: peer)
+//            obj.dType = payload as! DebuggerType
+//            obj.isLogged = true
+//            loggedClient[peer.id] = obj
+//
+//        case AppContext.self:
+//            var obj = loggedClient[peer.id] ?? Client(peer: peer)
+//            obj.context = payload as! AppContext
+//            obj.isLogged = true
+//            loggedClient[peer.id] = obj
+//            transceiver.send(ServerMultipeerTransceiverAsk.live, to: [peer])
+//
+//        case Event<AnyCodable>.self:
+//            var obj = loggedClient[peer.id] ?? Client(peer: peer)
+//            obj.events[event.timestamp] = event
+//            loggedClient[peer.id] = obj
+//
+//        case AppSession<AnyCodable>.self:
+//            var obj = loggedClient[peer.id] ?? Client(peer: peer)
+//            obj.sessions[appSession.id.uuidString] = appSession
+//            loggedClient[peer.id] = obj
+//
+//        case [String: AppSession<AnyCodable>].self:
+//            var obj = loggedClient[peer.id] ?? Client(peer: peer)
+//            obj.sessions = sessions
+//            loggedClient[peer.id] = obj
+//
+//        }
+//
+//        return loggedClient
+//    }
+
   internal static var live:
     (
       _ peerName: String,
@@ -87,7 +127,6 @@ extension ServerTransceiver {
       // MARK: ServerMultipeerTransceiverAsk.session
       transceiver.receive(AppSession<AnyCodable>.self) {
         (appSession: AppSession<AnyCodable>, peer) in
-
         var obj = loggedClient[peer.id] ?? Client(peer: peer)
         obj.sessions[appSession.id.uuidString] = appSession
         loggedClient[peer.id] = obj
@@ -96,7 +135,6 @@ extension ServerTransceiver {
       // MARK: ServerMultipeerTransceiverAsk.allSessions
       transceiver.receive([String: AppSession<AnyCodable>].self) {
         (sessions: [String: AppSession<AnyCodable>], peer) in
-
         var obj = loggedClient[peer.id] ?? Client(peer: peer)
         obj.sessions = sessions
         loggedClient[peer.id] = obj

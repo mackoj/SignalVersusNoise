@@ -49,6 +49,7 @@ public class SVNClientTransceiver {
     transceiver = MultipeerTransceiver(configuration: configuration)
     transceiver.resume()
     registerDidEnterBackgroundNotification()
+    registerMetricKit()
     respondToTransceiver()
     listenAppLifeCycle()
     transceiver.broadcast(ClientMultipeerTransceiverAsk.register)
