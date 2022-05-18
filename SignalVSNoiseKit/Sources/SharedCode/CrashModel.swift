@@ -530,11 +530,14 @@ public struct User: Equatable, Codable {
   public var intl2: String?
   public var quotedValue: String?
   public var test: String?
-  //  public var テスト: String?
-
+  
   public init(
-    quotedKey: String?, bslashValue: String?, bslashKey: String?, intl2: String?,
-    quotedValue: String?, test: String? /*, テスト: String?*/
+    quotedKey: String?,
+    bslashValue: String?,
+    bslashKey: String?,
+    intl2: String?,
+    quotedValue: String?,
+    test: String?
   ) {
     self.quotedKey = quotedKey
     self.bslashValue = bslashValue
@@ -542,6 +545,5 @@ public struct User: Equatable, Codable {
     self.intl2 = intl2
     self.quotedValue = quotedValue
     self.test = test
-    //    self.テスト = テスト
   }
 }

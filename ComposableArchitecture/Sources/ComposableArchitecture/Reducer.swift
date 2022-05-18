@@ -19,7 +19,7 @@ import Combine
 ///   effect output its values on the thread of your choice.
 public struct Reducer<State, Action, Environment> {
   private let reducer: (inout State, Action, Environment) -> Effect<Action, Never>
-  var performedAction: (String, State)  -> Void = { _, _ in }
+  public var performedAction: (String, State)  -> Void = { _, _ in }
 
   /// Initializes a reducer from a simple reducer function signature.
   ///
