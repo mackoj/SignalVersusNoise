@@ -48,7 +48,7 @@ public final class ViewStore<State, Action>: ObservableObject {
 
   private var viewCancellable: AnyCancellable?
   var withViewStore: (State)  -> Void
-  var stateChange: (State)  -> Void
+  var stateChange: (String, State)  -> Void
   var swiftUIBodyUpdate: (String, State) -> Void
 
   /// Initializes a view store from a store.
@@ -74,7 +74,7 @@ public final class ViewStore<State, Action>: ObservableObject {
   /// The current state.
   public private(set) var state: State {
     willSet {
-      self.stateChange(state)
+      self.stateChange("\(type(of: State.self))", state)
       self.objectWillChange.send()
     }
   }

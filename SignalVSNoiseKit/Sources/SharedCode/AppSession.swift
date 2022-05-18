@@ -3,11 +3,21 @@ import CoreTelephony
 import Foundation
 import UIKit
 
-public struct AppSession<State: Codable>: Codable, Identifiable, Equatable {
+public struct AppSession<State: Codable>: Codable, Identifiable, Equatable, CustomStringConvertible {
+  
   public var id = UUID()
   public var events: [Event<AnyCodable>] = []
   public var date = Date()
   public var appContext = AppContext()
+  
+  public var description: String {
+    """
+id: \(id)
+events: \(events.count)
+date: \(date.formatted())
+appContext: \(appContext)
+"""
+  }
 
   public init(_ bundle: Bundle = .main, _ fileManager: FileManager = .default) {
     appContext = AppContext(bundle, fileManager)
@@ -23,7 +33,17 @@ public struct AppSession<State: Codable>: Codable, Identifiable, Equatable {
   }
 }
 
-public struct AppContext: Codable, Equatable {
+public struct AppContext: Codable, Equatable, CustomStringConvertible {
+  
+  public var app: AppInfo
+  public var device: DeviceInfo
+  public var description: String {
+    """
+app: \(app)
+device: \(device)
+"""
+  }
+
   public struct AppInfo: Codable, Equatable {
     public var bundleShortVersion: String
     public var bundleVersion: String
@@ -50,9 +70,6 @@ public struct AppContext: Codable, Equatable {
     public var screenWidth: Int
     public var screenHeight: Int
   }
-
-  public var app: AppInfo
-  public var device: DeviceInfo
 
   public init(_ bundle: Bundle = .main, _ fileManager: FileManager = .default) {
     self.app = AppInfo(

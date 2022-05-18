@@ -16,7 +16,7 @@ public final class Store<State, Action> {
   private var bufferedActions: [Action] = []
   public var sendAction: (String)  -> Void = { _ in }
   public var withViewStore: (State)  -> Void = { _ in }
-  public var stateChange: (State)  -> Void = { _ in }
+  public var stateChange: (String, State)  -> Void = { _, _ in }
   public var swiftUIBodyUpdate: (String, State)  -> Void = { _, _ in }
 
   /// Initializes a store from an initial state, a reducer, and an environment.
